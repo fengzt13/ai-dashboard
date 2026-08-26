@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "商业表现：AI 公司营收与盈利",
+    "updated": "2026-08-26",
+    "source": "Anthropic / OpenAI / xAI / Google 投资者披露 / 华尔街日报 / 彭博社 / 财报",
+    "note": "ARR = 年化营收运行率。非上市公司数据来自投资者披露和媒体报道，可能存在偏差。Gemini 未单独披露 ARR，以 Google Cloud AI 相关收入估算。"
+  },
+  "anthropic": {
+    "name": "Anthropic",
+    "arr_now": "$650亿+",
+    "arr_time": "2026-07底",
+    "arr_mom": "+18%（6月~$550亿→7月$650亿，估）",
+    "arr_qoq": "+242%（Q1末$190亿→Q2末$650亿）",
+    "arr_yoy": "+1500%（2025.07 ~$40亿→2026.07 $650亿）",
+    "q2_2026_revenue": "$115亿+",
+    "q1_2026_revenue": "$47.3亿",
+    "q2_revenue_qoq": "+143%（vs Q1 $47.3亿）",
+    "q2_yoy": "~14倍（vs 2025Q2 $7.87亿）",
+    "q2_operating_profit": "$5.59亿（首次单季盈利）",
+    "q2_profit_qoq": "+1018%（Q1 +$0.5亿→Q2 +$5.59亿）",
+    "revenue_structure": "75-85% 企业级 API",
+    "valuation_secondary": "~$1.5万亿",
+    "ipo_target": "朝$2万亿进行",
+    "arr_timeline": [
+      { "date": "2025-01", "arr": 10, "note": "$10亿" },
+      { "date": "2025-06", "arr": 40, "note": "估算" },
+      { "date": "2025-09", "arr": 70, "note": "$70亿" },
+      { "date": "2025-12", "arr": 90, "note": "$90亿" },
+      { "date": "2026-02", "arr": 140, "note": "$140亿（+55%）" },
+      { "date": "2026-03", "arr": 190, "note": "$190亿" },
+      { "date": "2026-04", "arr": 300, "note": "$300亿（+58%）" },
+      { "date": "2026-05", "arr": 470, "note": "$470亿" },
+      { "date": "2026-07", "arr": 650, "note": "$650亿+" }
+    ]
+  },
+  "openai": {
+    "name": "OpenAI",
+    "arr_now": "$400亿+",
+    "arr_time": "2026-08",
+    "arr_mom": "+12%（7月$400亿→8月估$450亿）",
+    "arr_qoq": "+60%（Q1末$250亿→Q2末$400亿）",
+    "arr_yoy": "+233%（2025.07 $120亿→2026.07 $400亿）",
+    "q2_2026_revenue": "$67亿",
+    "q1_2026_revenue": "$57亿",
+    "q2_qoq": "+18%（较 Q1 的 35.7% 近乎腰斩）",
+    "q2_revenue_yoy": "+131%（vs 2025Q2 ~$29亿）",
+    "q2_operating_loss": "$123亿",
+    "q1_operating_loss": "$93亿",
+    "q2_loss_qoq": "+32%（亏损扩大，Q1 $93亿→Q2 $123亿）",
+    "revenue_structure": "65%+ C 端订阅",
+    "valuation_secondary": "~$8,520亿",
+    "burn_ratio": "每赚 $1 烧掉 >$1.8",
+    "profit_estimate": "2029-2030年才可能转正",
+    "arr_timeline": [
+      { "date": "2023", "arr": 20, "note": "$20亿" },
+      { "date": "2024", "arr": 60, "note": "$60亿" },
+      { "date": "2025-07", "arr": 120, "note": "$120亿" },
+      { "date": "2025-12", "arr": 200, "note": "$200亿" },
+      { "date": "2026-03", "arr": 250, "note": "$250亿" },
+      { "date": "2026-07", "arr": 400, "note": "$400亿+" }
+    ]
+  },
+  "gemini": {
+    "name": "Google Gemini",
+    "arr_now": "未单独披露",
+    "arr_time": "2026-08",
+    "arr_mom": "+5%（估算，增量放缓）",
+    "arr_qoq": "+25%（估算）",
+    "arr_yoy": "+400%（从~$10亿到~$50-80亿）",
+    "mau": "月活 >10亿",
+    "mau_mom": "+3%（增量放缓）",
+    "mau_qoq": "+11%（Q1 ~9亿→Q2 >10亿）",
+    "note": "Gemini 未单独披露 ARR；Google Cloud Q2 2026 营收 $140亿（含 AI 基础设施），Google AI 营收估算 $50-80亿/年",
+    "google_cloud_q2": "$140亿（含AI基础设施）",
+    "arr_estimate": "~$50-80亿（Google AI 估算）",
+    "valuation_note": "母公司 Alphabet 市值 ~$2.8万亿",
+    "challenge": "人才流失严重（Jeff Dean 离职、DeepMind 创始人卸任），Gemini 3.5 Pro 被评测落后于 Claude/GPT",
+    "arr_timeline": [
+      { "date": "2025-06", "arr": 10, "note": "估算（Google AI）" },
+      { "date": "2025-12", "arr": 20, "note": "估算" },
+      { "date": "2026-07", "arr": 50, "note": "估算（$50-80亿）" }
+    ]
+  },
+  "grok": {
+    "name": "xAI (Grok)",
+    "arr_now": "~$20亿（2026目标）",
+    "arr_time": "2026-08",
+    "arr_mom": "N/A（年度目标）",
+    "arr_qoq": "+43%（Q1 ~$14亿→Q2 ~$20亿，估）",
+    "arr_yoy": "+471%（2025 $3.5亿→2026目标$20亿）",
+    "revenue_2025": "$3.5亿（2025全年）",
+    "revenue_2026_target": "$20亿（4倍跳跃）",
+    "revenue_yoy": "+471%（$3.5亿→$20亿）",
+    "operating_loss_2025": "$64亿",
+    "monthly_infra_spend": "~$10亿/月",
+    "valuation": "~$550亿",
+    "note": "增速惊人但亏损巨大，2025年运营亏损 $64亿，基础设施月支出约 $10亿",
+    "arr_timeline": [
+      { "date": "2025-06", "arr": 1, "note": "估算" },
+      { "date": "2025-12", "arr": 3.5, "note": "$3.5亿/年" },
+      { "date": "2026-07", "arr": 20, "note": "目标 $20亿" }
+    ]
+  },
+  "profit_comparison": {
+    "desc": "Anthropic 与 OpenAI 季度利润对比（亿美元），正值=盈利，负值=亏损",
+    "labels": ["2025-Q1", "2025-Q2", "2025-Q3", "2025-Q4", "2026-Q1", "2026-Q2"],
+    "anthropic": [-2.0, -1.5, -1.0, -0.5, 0.5, 5.59],
+    "openai": [-5.0, -8.0, -10.0, -12.0, -9.3, -12.3],
+    "anthropic_notes": ["亏损收窄", "亏损收窄", "亏损收窄", "接近盈亏平衡", "首次微利", "首次显著盈利"],
+    "openai_notes": ["亏损扩大", "亏损扩大", "亏损扩大", "亏损扩大", "亏损收窄", "亏损再次扩大"]
+  },
+  "comparison": {
+    "dimensions": [
+      { "dim": "Q2 营收", "anthropic": "$115亿", "openai": "$67亿", "gemini": "未单独披露", "grok": "估算 ~$5亿/季" },
+      { "dim": "盈利状态", "anthropic": "单季盈利 $5.59亿", "openai": "单季亏损 $123亿", "gemini": "Google Cloud 整体盈利", "grok": "年亏损 $64亿" },
+      { "dim": "收入来源", "anthropic": "企业 API (75-85%)", "openai": "C端订阅 (65%+)", "gemini": "搜索+云+订阅混合", "grok": "X 平台订阅绑定" },
+      { "dim": "增长驱动", "anthropic": "Claude Code / Agent", "openai": "ChatGPT / 企业版", "gemini": "Gemini App 10亿月活", "grok": "X 平台流量" },
+      { "dim": "二级市场估值", "anthropic": "~$1.5万亿", "openai": "~$8,520亿", "gemini": "Alphabet ~$2.8万亿", "grok": "~$550亿" }
+    ]
+  },
+  "others": {
+    "coreweave": { "name": "CoreWeave", "metric": "Q2 营收 $25.8亿 / 在手订单 $1,040亿" },
+    "nscale": { "name": "Nscale", "metric": "Q2 营收 >$1亿 / 在手订单 $510亿" }
+  }
+}

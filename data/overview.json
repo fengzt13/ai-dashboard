@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "数据总览：全球 AI 使用与覆盖率追踪",
+    "updated": "2026-08-26",
+    "framework": "6 层自上而下分析链路",
+    "framework_desc": "需求与采用 → 产出与消耗 → 成本与定价 → 算力供给 → 商业表现 → 宏观格局"
+  },
+  "key_metrics": [
+    { "label": "全球周 Token 调用量", "value": "93.3万亿", "sub": "环比 +23.9%", "mom": "+37%", "qoq": "+86%", "yoy": "+522%", "delta": "up", "page": "token" },
+    { "label": "Anthropic ARR", "value": "$650亿", "sub": "首次单季盈利 $5.59亿", "mom": "+18%", "qoq": "+242%", "yoy": "+1500%", "delta": "up", "page": "business" },
+    { "label": "OpenAI ARR", "value": "$400亿+", "sub": "Q2 亏损 $123亿", "mom": "+12%", "qoq": "+60%", "yoy": "+233%", "delta": "down", "page": "business" },
+    { "label": "H100 租赁价（美国）", "value": "$2.35/h", "sub": "较 2025.10 低点 +40%", "mom": "持平", "qoq": "+0%", "yoy": "+12%", "delta": "up", "page": "compute" },
+    { "label": "CoreWeave 在手订单", "value": "$1,040亿", "sub": "Q2 营收 +112%", "mom": null, "qoq": null, "yoy": "+112%", "delta": "up", "page": "compute" },
+    { "label": "算力基建表外承诺", "value": "$3.1万亿", "sub": "未来 3-5 年支出锁定", "mom": null, "qoq": "+15%", "yoy": "+55%", "delta": "up", "page": "cost" },
+    { "label": "全球 AI 资本开支", "value": "$7,650亿", "sub": "2026 首次超油气", "mom": null, "qoq": null, "yoy": "+50%", "delta": "up", "page": "macro" },
+    { "label": "CME 算力期货", "value": "10月挂牌", "sub": "算力金融化元年", "mom": null, "qoq": null, "yoy": "元年", "delta": "up", "page": "macro" }
+  ],
+  "conclusions": [
+    { "title": "AI 行业需求持续爆发，景气度处于历史峰值", "desc": "全球 Token 周调用量 2 年增长 9000 倍，Agent 工作负载成为核心增量引擎，行业需求侧未见放缓迹象。" },
+    { "title": "Token 单价进入下降通道，行业进入「以量补价」阶段", "desc": "Silicon Data 支出指数停滞回落，模型竞争加剧 + 开源低价，单位 Token 收入承压，靠用量增长弥补。" },
+    { "title": "算力供给全面紧张，成本不降反升", "desc": "H100 租赁价较低点反弹 40%、B200 现货涨 48%；电力成为最大瓶颈；算力期货 10 月挂牌标志金融化启动。" },
+    { "title": "行业商业模型分化加速：企业 API 跑通盈利，C 端订阅仍烧钱", "desc": "Anthropic Q2 首次单季盈利 $5.59亿（企业 API 模式），OpenAI Q2 亏损 $123亿（C 端订阅模式），商业效率差距拉大。" },
+    { "title": "行业资本投入史无前例：$3.1万亿表外承诺锁定未来支出", "desc": "五大云厂商+英伟达+博通表外承诺超 $3.1万亿，约为年资本开支的 5 倍，短期不会收缩。" },
+    { "title": "算力金融化是下半年最重要变化", "desc": "CME 算力期货 10 月挂牌，算力从长协定价走向全球金融定价，类似 1983 年原油期货，将重塑产业链定价方式。" }
+  ],
+  "timeline": [
+    { "date": "2025-01", "event": "Anthropic ARR $10亿，OpenAI ARR $20亿" },
+    { "date": "2025-10", "event": "H100 合约价跌至 $1.70/小时低点" },
+    { "date": "2025-12", "event": "OpenRouter 全年超 100万亿 Token" },
+    { "date": "2026-02", "event": "行业 Agent 工作负载占比快速攀升" },
+    { "date": "2026-05", "event": "Anthropic ARR $470亿，融资估值 9,650亿首次超 OpenAI" },
+    { "date": "2026-07", "event": "Anthropic ARR $650亿，Q2 首季盈利；OpenAI ARR $400亿" },
+    { "date": "2026-08", "event": "全球周 Token 93.3万亿；CME 算力期货细则发布" }
+  ],
+  "sources": [
+    "OpenRouter 公开数据",
+    "Anthropic / OpenAI / xAI 投资者披露",
+    "Silicon Data 指数",
+    "CME / 摩根士丹利",
+    "财报与公开报道"
+  ]
+}

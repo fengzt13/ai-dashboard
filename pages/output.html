@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产出与消耗 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="Token 产出增长曲线、中美模型生态、开源占比与年度产出。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 产出与消耗</div>
+      <h1>产出与消耗：Token 产出与模型生态</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- 关键产出指标 -->
+    <section class="section">
+      <div class="section-header"><h2>关键产出指标</h2></div>
+      <div class="card-grid" id="metricCards"></div>
+    </section>
+
+    <!-- 增长曲线 -->
+    <section class="section">
+      <div class="section-header"><h2>OpenRouter 周调用量增长曲线（万亿 Token）</h2><span class="more text-muted">2024-01 至 2026-08</span></div>
+      <div class="chart-card">
+        <div class="chart-desc">2 年增长约 9000 倍，2026 年起进入指数级爬升。</div>
+        <div class="chart-box" id="chartGrowth"></div>
+      </div>
+    </section>
+
+    <!-- 生态对比 -->
+    <section class="section">
+      <div class="section-header"><h2>中国 vs 美国 · 模型生态</h2></div>
+      <div class="card-grid" id="ecoCards"></div>
+    </section>
+
+    <!-- 开源占比 -->
+    <section class="section">
+      <div class="section-header"><h2>开源模型使用占比</h2></div>
+      <div class="framewrap" id="openSource"></div>
+      <ul class="timeline" id="osTimeline" style="margin-top:1rem;"></ul>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.output;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：output 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // 卡片生成工具函数
+  function trendBadge(label, value) {
+    if (!value) return '';
+    var isNegative = value.charAt(0) === '-';
+    var isNa = value === 'N/A' || value.indexOf('N/A') >= 0;
+    var cls = isNa ? 'trend-neutral' : (isNegative ? 'trend-down' : 'trend-up');
+    return '<span class="card-trend ' + cls + '"><b>' + label + '</b> ' + value + '</span>';
+  }
+
+  function buildCard(c) {
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    var hasTrend = c.mom || c.qoq || c.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', c.mom);
+      html += trendBadge('QoQ', c.qoq);
+      html += trendBadge('YoY', c.yoy);
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // 关键产出指标
+  var k = D.key_metrics;
+  var mCards = [
+    { label: '当前周产出', value: k.openrouter_weekly_now, sub: 'OpenRouter 平台', mom: k.openrouter_weekly_now_mom, qoq: k.openrouter_weekly_now_qoq, yoy: k.openrouter_weekly_now_yoy },
+    { label: '2024 年周产出', value: k.openrouter_weekly_2024, sub: '基线', mom: null, qoq: null, yoy: null },
+    { label: '增长倍数', value: k.growth_times, sub: '2 年', mom: null, qoq: null, yoy: null },
+    { label: '2026Q1 年化产出', value: k.annual_token_2026q1, sub: 'Token/年', mom: null, qoq: null, yoy: null },
+    { label: '年化推理支出', value: k.annual_inference_spend, sub: 'OpenRouter', mom: k.annual_spend_mom, qoq: k.annual_spend_qoq, yoy: k.annual_spend_yoy },
+    { label: '模型数量', value: k.models_count, sub: '平台在架', mom: null, qoq: null, yoy: k.models_count_yoy }
+  ];
+  var mg = document.getElementById('metricCards');
+  mCards.forEach(function (c) {
+    mg.innerHTML += buildCard(c);
+  });
+
+  // 增长曲线
+  var g = D.growth_curve;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartGrowth', g.points.map(function (p) { return p.date; }), [
+      { name: '周产出', data: g.points.map(function (p) { return p.weekly_tokens; }), area: true, color: undefined }
+    ], { yName: '万亿 Token' });
+  });
+
+  // 生态对比
+  var eco = D.ecosystem;
+  var eg = document.getElementById('ecoCards');
+  var ecoCards = [
+    { label: '中国 · 周调用量', value: eco.china.weekly, sub: eco.china.trend, models: eco.china.models, os: eco.china.open_source },
+    { label: '美国 · 周调用量', value: eco.us.weekly, sub: eco.us.trend, models: eco.us.models, os: eco.us.open_source }
+  ];
+  ecoCards.forEach(function (c) {
+    eg.innerHTML += '<div class="card card-hover"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>' +
+      '<div style="margin-top:0.6rem;font-size:0.78rem;color:var(--muted);line-height:1.6;">代表模型：' + c.models.join(' / ') + '</div>' +
+      '<div style="margin-top:0.3rem;font-size:0.78rem;color:var(--muted);line-height:1.6;">开源策略：' + c.os + '</div></div>';
+  });
+
+  // 开源占比
+  var os = D.open_source_share;
+  document.getElementById('openSource').innerHTML = '<p>' + os.desc + '</p>';
+  var osl = document.getElementById('osTimeline');
+  os.milestones.forEach(function (t) {
+    osl.innerHTML += '<li class="timeline-item"><time>' + t.date + '</time><div class="tl-content"><div class="tl-title">' + t.event + '</div></div></li>';
+  });
+
+  SiteInit('output');
+})();
+</script>
+</body>
+</html>

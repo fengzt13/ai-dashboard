@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>广州番禺有趣打工仔小冯的 AI 追踪 · 数据总览</title>
+  <meta name="description" content="全球 AI 使用与覆盖率追踪：Token 调用、模型产出、成本定价、算力供给、商业表现、宏观格局六大维度，每周一自动更新。">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data-bundle.js"></script>
+  <script src="js/echarts.min.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/site.js"></script>
+  <style>
+    /* 首页特有样式 */
+    .hero-actions { margin-top: 1.6rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .link-card { display: block; }
+    .conclusion-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.2rem 1.3rem; transition: all 0.2s ease; }
+    .conclusion-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .conclusion-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--foreground); }
+    .conclusion-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+    .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .framewrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.3rem 1.4rem; }
+    .framewrap p { color: var(--muted); font-size: 0.88rem; line-height: 1.9; }
+    .framewrap .fw { color: var(--foreground); font-weight: 600; }
+    .framewrap .fw b { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 数据总览</div>
+      <h1>广州番禺有趣打工仔小冯的<br><span style="font-size:0.7em;font-weight:600;color:var(--accent);">AI 追踪</span></h1>
+      <p class="subtitle">以 6 层自上而下分析链路，持续追踪全球 AI 的「使用量 → 产出 → 成本 → 算力 → 商业 → 宏观」真实状态。所有数据每周一自动更新。</p>
+      <div class="hero-stats" id="heroStats"></div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#key-metrics">查看关键指标</a>
+        <a class="btn btn-outline" href="pages/business.html">商业表现</a>
+      </div>
+    </section>
+
+    <!-- 6 层框架 -->
+    <section class="section" id="framework">
+      <div class="section-header">
+        <h2>分析框架 · 6 层自上而下</h2>
+        <a class="more" href="pages/token.html">需求与采用 ↗</a>
+      </div>
+      <div class="framewrap">
+        <p id="frameworkDesc"></p>
+      </div>
+    </section>
+
+    <!-- 关键指标 -->
+    <section class="section" id="key-metrics">
+      <div class="section-header">
+        <h2>关键指标</h2>
+        <span class="more text-muted">截至 <span id="updatedDate"></span></span>
+      </div>
+      <div class="card-grid" id="metricGrid"></div>
+    </section>
+
+    <!-- 结论 -->
+    <section class="section" id="conclusions">
+      <div class="section-header">
+        <h2>关键结论</h2>
+      </div>
+      <div class="card-grid" id="conclusionGrid"></div>
+    </section>
+
+    <!-- 时间线 -->
+    <section class="section" id="timeline">
+      <div class="section-header">
+        <h2>关键时间线</h2>
+      </div>
+      <ul class="timeline" id="timelineList"></ul>
+    </section>
+
+    <!-- 数据来源 -->
+    <section class="section">
+      <div class="source-note" id="sourceNote"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.overview;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：overview 数据缺失</p>'; return; }
+
+  // 数据源标注
+  var src = document.getElementById('sourceNote');
+  src.innerHTML = '<strong>数据来源：</strong>' + (D.sources || []).join(' · ') + ' · 数据仅供参考，不构成投资建议。';
+
+  // Hero stats
+  var hero = document.getElementById('heroStats');
+  hero.innerHTML = '全球周 Token 调用量 <strong>' + (D.key_metrics[0] ? D.key_metrics[0].value : '—') + '</strong> · Anthropic ARR <strong>' + (D.key_metrics[1] ? D.key_metrics[1].value : '—') + '</strong> · H100 租赁价 <strong>' + (D.key_metrics[3] ? D.key_metrics[3].value : '—') + '</strong>';
+
+  // 框架描述
+  var fw = document.getElementById('frameworkDesc');
+  fw.innerHTML = '<span class="fw">' + D.meta.framework + '</span><br>' + D.meta.framework_desc;
+
+  // 更新时间
+  document.getElementById('updatedDate').textContent = D.meta.updated;
+
+  // 关键指标卡片
+  function trendBadge(label, value) {
+    if (!value) return '';
+    var isNegative = value.charAt(0) === '-';
+    var isNa = value === 'N/A' || value.indexOf('N/A') >= 0 || value === '持平' || value === '元年';
+    var cls = isNa ? 'trend-neutral' : (isNegative ? 'trend-down' : 'trend-up');
+    return '<span class="card-trend ' + cls + '"><b>' + label + '</b> ' + value + '</span>';
+  }
+
+  var grid = document.getElementById('metricGrid');
+  D.key_metrics.forEach(function (m) {
+    var deltaCls = m.delta === 'up' ? 'delta-up' : 'delta-down';
+    var arrow = m.delta === 'up' ? '↑' : '↓';
+    var card = document.createElement('a');
+    card.href = 'pages/' + (m.page || 'index') + '.html';
+    card.className = 'card card-hover link-card';
+    var html = '<div class="card-label">' + m.label + '</div>' +
+      '<div class="card-value">' + m.value + '</div>' +
+      '<div class="card-sub">' + m.sub + '</div>' +
+      '<div class="card-delta ' + deltaCls + '">' + arrow + '</div>';
+    var hasTrend = m.mom || m.qoq || m.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', m.mom);
+      html += trendBadge('QoQ', m.qoq);
+      html += trendBadge('YoY', m.yoy);
+      html += '</div>';
+    }
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
+
+  // 结论卡片
+  var cg = document.getElementById('conclusionGrid');
+  D.conclusions.forEach(function (c) {
+    var card = document.createElement('div');
+    card.className = 'conclusion-card';
+    card.innerHTML = '<h3>' + c.title + '</h3><p>' + c.desc + '</p>';
+    cg.appendChild(card);
+  });
+
+  // 时间线
+  var tl = document.getElementById('timelineList');
+  D.timeline.forEach(function (t) {
+    var li = document.createElement('li');
+    li.className = 'timeline-item';
+    li.innerHTML = '<time>' + t.date + '</time><div class="tl-content"><div class="tl-title">' + t.event + '</div></div>';
+    tl.appendChild(li);
+  });
+
+  // 初始化站点组件
+  SiteInit('index');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "算力供给：GPU 价格与算力基础设施",
+    "updated": "2026-08-26",
+    "source": "Silicon Data / CME / RunPod / CoreWeave 财报 / 网易实测 / Data Center Watch / 摩根士丹利",
+    "note": "GPU 价格基于美国市场公开报价；Silicon Data H100 Rental Index 为行业基准定价指数。"
+  },
+  "gpu_price_us": [
+    { "gpu": "H100（1年期合约）", "price": "$2.35/GPU小时", "change": "+40%（自2025.10低点）", "mom": "持平（高位维持）", "qoq": "+0%（Q2以来稳定$2.35）", "yoy": "+12%（2025.08 ~$2.1→2026.08 $2.35）", "time": "2026H1", "source": "Silicon Data" },
+    { "gpu": "H100（RunPod 社区云）", "price": "$2.69/小时", "change": "现货即时租", "mom": null, "qoq": null, "yoy": null, "time": "2026.08.22", "source": "RunPod" },
+    { "gpu": "H100（平台C）", "price": "$6.16/小时", "change": "溢价129%", "mom": null, "qoq": null, "yoy": null, "time": "2026.08.22", "source": "网易实测" },
+    { "gpu": "B200（现货租赁）", "price": "—", "change": "2个月涨48%", "mom": "+19%（7月124→8月148）", "qoq": "+48%（2个月）", "yoy": "N/A（新品）", "time": "2026.08", "source": "Silicon Data" },
+    { "gpu": "H200（整机月租）", "price": "~$20,000/月", "change": "—", "mom": null, "qoq": null, "yoy": null, "time": "2026.08", "source": "CoreWeave" }
+  ],
+  "gpu_cloud_compare": {
+    "desc": "2026年8月22日同一天实测三家美国 GPU 云，同一颗 H100 时租价差超过 1 倍",
+    "data": [
+      { "platform": "RunPod 社区云", "price": "$2.69/小时" },
+      { "platform": "平台B", "price": "待确认" },
+      { "platform": "平台C", "price": "$6.16/小时" }
+    ]
+  },
+  "gpu_price_history": {
+    "desc": "H100 一年期合约价走势（美元/GPU小时），数据基于 Silicon Data H100 Rental Index",
+    "source": "Silicon Data H100 Rental Index",
+    "points": [
+      { "date": "2025-01", "price": 2.1, "note": "估算" },
+      { "date": "2025-04", "price": 1.95, "note": "估算" },
+      { "date": "2025-07", "price": 1.85, "note": "估算" },
+      { "date": "2025-10", "price": 1.7, "note": "低点" },
+      { "date": "2026-01", "price": 1.95, "note": "回升" },
+      { "date": "2026-03", "price": 2.35, "note": "+40%" },
+      { "date": "2026-06", "price": 2.35, "note": "高位" },
+      { "date": "2026-08", "price": 2.35, "note": "最新" }
+    ]
+  },
+  "b200_price_history": {
+    "desc": "B200 现货租赁价趋势（相对指数，以 2026-06 为基准 100）",
+    "source": "Silicon Data B200 Rental Index",
+    "points": [
+      { "date": "2026-06", "price": 100, "note": "基准" },
+      { "date": "2026-07", "price": 124, "note": "+24%" },
+      { "date": "2026-08", "price": 148, "note": "+48%（2个月）" }
+    ]
+  },
+  "cloud_providers": [
+    { "company": "CoreWeave", "q2_revenue": "$25.8亿（+112% YoY）", "backlog": "$1,040亿", "valuation": "~$463亿", "note": "推理平台 ARR 数月内从 $100万→$1亿+" },
+    { "company": "Nscale", "q2_revenue": ">$1亿", "backlog": "$510亿", "valuation": "目标$250亿", "note": "拟9月 IPO" }
+  ],
+  "compute_futures": {
+    "status": "CME 算力期货 10月5日 NYMEX 挂牌（待 CFTC 批准）",
+    "contract": "H100 GPU 小时租赁费（730小时/月基准）+ B200 GPU 小时租赁费",
+    "significance": "算力从'长协定价'走向'全球金融定价'，类似1983年原油期货"
+  },
+  "infrastructure": {
+    "data_center_blocked": "美国 75 个 AIDC 项目受阻/延期，总价值 ~$1,300亿（Q1 2026）",
+    "power_density": "AIDC 单机柜功率 20kW-100kW+",
+    "global_investment": "~$16万亿 涌入 AIDC",
+    "hbm_trend": "HBM 涨价，存储超级周期",
+    "chip_per_rack": "单 AI 服务器机架芯片数突破 4,500 颗",
+    "hyperscaler_capex_2026": "全球 AI 资本开支预计 $7,650亿，首次超油气 ($6,810亿)"
+  }
+}

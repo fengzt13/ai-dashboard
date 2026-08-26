@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商业表现 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="Anthropic、OpenAI、Gemini、xAI 四巨头 ARR 走势、季度利润对比。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 商业表现</div>
+      <h1>商业表现：AI 公司营收与盈利</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- 四巨头 ARR 对比图 -->
+    <section class="section">
+      <div class="section-header"><h2>四大公司 ARR 走势（亿美元）</h2><span class="more text-muted">Anthropic / OpenAI / Gemini / xAI</span></div>
+      <div class="chart-card">
+        <div class="chart-desc">Anthropic 2026 年增速最陡并在 5 月反超 OpenAI 估值；xAI 增速快但基数小；Gemini 未单独披露 ARR，以 Google AI 估算。</div>
+        <div class="chart-box" id="chartArr"></div>
+      </div>
+    </section>
+
+    <!-- 季度利润对比图 -->
+    <section class="section">
+      <div class="section-header"><h2>Anthropic vs OpenAI · 季度利润对比</h2><span class="more text-muted">亿美元（正=盈利，负=亏损）</span></div>
+      <div class="chart-card">
+        <div class="chart-desc" id="profitDesc"></div>
+        <div class="chart-box" id="chartProfit"></div>
+      </div>
+    </section>
+
+    <!-- 四公司卡片 -->
+    <section class="section">
+      <div class="section-header"><h2>Anthropic</h2><span class="more text-muted">ARR $650亿+</span></div>
+      <div class="card-grid" id="anthCards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>OpenAI</h2><span class="more text-muted">ARR $400亿+</span></div>
+      <div class="card-grid" id="oaCards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>Google Gemini</h2><span class="more text-muted">月活 >10亿</span></div>
+      <div class="card-grid" id="geminiCards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header"><h2>xAI (Grok)</h2><span class="more text-muted">2026目标 $20亿</span></div>
+      <div class="card-grid" id="grokCards"></div>
+    </section>
+
+    <!-- 横向对比表 -->
+    <section class="section">
+      <div class="section-header"><h2>四巨头横向对比</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>Anthropic</th><th>OpenAI</th><th>Gemini</th><th>xAI</th></tr></thead>
+          <tbody id="cmpBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 其他玩家 -->
+    <section class="section">
+      <div class="section-header"><h2>其他重要玩家</h2></div>
+      <div class="card-grid" id="othersCards"></div>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.business;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：business 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // 四公司 ARR 时间轴合并
+  var an = D.anthropic.arr_timeline;
+  var oa = D.openai.arr_timeline;
+  var ge = D.gemini.arr_timeline;
+  var gr = D.grok.arr_timeline;
+
+  // 取所有日期的并集，按时间排序
+  var allDates = {};
+  [].concat(an, oa, ge, gr).forEach(function (p) { allDates[p.date] = true; });
+  var labels = Object.keys(allDates).sort();
+
+  function buildSeries(timeline, dates) {
+    return dates.map(function (d) {
+      var match = null;
+      timeline.forEach(function (p) { if (p.date <= d) match = p.arr; });
+      return match;
+    });
+  }
+
+  CHARTS.ensure(function () {
+    CHARTS.line('chartArr', labels, [
+      { name: 'Anthropic', data: buildSeries(an, labels), color: undefined, area: true },
+      { name: 'OpenAI', data: buildSeries(oa, labels), color: undefined, area: false },
+      { name: 'Gemini (估)', data: buildSeries(ge, labels), color: undefined, area: false },
+      { name: 'xAI', data: buildSeries(gr, labels), color: undefined, area: false }
+    ], { yName: '亿美元' });
+  });
+
+  // 季度利润对比柱状图
+  var pc = D.profit_comparison;
+  document.getElementById('profitDesc').textContent = pc.desc;
+  CHARTS.ensure(function () {
+    CHARTS.bar('chartProfit', pc.labels, [
+      { name: 'Anthropic', data: pc.anthropic, color: '#16a34a' },
+      { name: 'OpenAI', data: pc.openai, color: '#b91c1c' }
+    ], { yName: '亿美元' });
+  });
+
+  // ===== 卡片生成工具函数 =====
+  function trendBadge(label, value) {
+    if (!value) return '';
+    var isNegative = value.charAt(0) === '-';
+    var isNa = value === 'N/A' || value.indexOf('N/A') >= 0;
+    var cls = isNa ? 'trend-neutral' : (isNegative ? 'trend-down' : 'trend-up');
+    return '<span class="card-trend ' + cls + '"><b>' + label + '</b> ' + value + '</span>';
+  }
+
+  function buildCard(c) {
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    var hasTrend = c.mom || c.qoq || c.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', c.mom);
+      html += trendBadge('QoQ', c.qoq);
+      html += trendBadge('YoY', c.yoy);
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function buildCardGemini(c) {
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value" style="font-size:1.1rem;">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    var hasTrend = c.mom || c.qoq || c.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', c.mom);
+      html += trendBadge('QoQ', c.qoq);
+      html += trendBadge('YoY', c.yoy);
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // Anthropic 卡片
+  var a = D.anthropic;
+  var aCards = [
+    { label: '当前 ARR', value: a.arr_now, sub: a.arr_time, mom: a.arr_mom, qoq: a.arr_qoq, yoy: a.arr_yoy },
+    { label: 'Q2 2026 营收', value: a.q2_2026_revenue, sub: '同比 ~14 倍', mom: null, qoq: a.q2_revenue_qoq, yoy: a.q2_yoy },
+    { label: 'Q2 盈利', value: a.q2_operating_profit, sub: '首次单季盈利', mom: null, qoq: a.q2_profit_qoq, yoy: '首次转正' },
+    { label: '收入结构', value: '企业 API 为主', sub: a.revenue_structure, mom: null, qoq: null, yoy: null },
+    { label: '二级市场估值', value: a.valuation_secondary, sub: '', mom: null, qoq: null, yoy: null },
+    { label: 'IPO 目标', value: a.ipo_target, sub: '', mom: null, qoq: null, yoy: null }
+  ];
+  var ag = document.getElementById('anthCards');
+  aCards.forEach(function (c) {
+    ag.innerHTML += buildCard(c);
+  });
+
+  // OpenAI 卡片
+  var o = D.openai;
+  var oCards = [
+    { label: '当前 ARR', value: o.arr_now, sub: o.arr_time, mom: o.arr_mom, qoq: o.arr_qoq, yoy: o.arr_yoy },
+    { label: 'Q2 2026 营收', value: o.q2_2026_revenue, sub: o.q2_qoq, mom: null, qoq: o.q2_revenue_yoy, yoy: null },
+    { label: 'Q2 亏损', value: o.q2_operating_loss, sub: 'Q1 亏损 $93亿', mom: null, qoq: o.q2_loss_qoq, yoy: '亏损持续扩大' },
+    { label: '收入结构', value: 'C 端订阅 65%+', sub: o.revenue_structure, mom: null, qoq: null, yoy: null },
+    { label: '烧钱比', value: o.burn_ratio, sub: '', mom: null, qoq: null, yoy: null },
+    { label: '盈利预期', value: o.profit_estimate, sub: '2029-2030', mom: null, qoq: null, yoy: null }
+  ];
+  var og = document.getElementById('oaCards');
+  oCards.forEach(function (c) {
+    og.innerHTML += buildCard(c);
+  });
+
+  // Gemini 卡片
+  var g = D.gemini;
+  var gCards = [
+    { label: 'ARR（估算）', value: g.arr_estimate, sub: '未单独披露', mom: g.arr_mom, qoq: g.arr_qoq, yoy: g.arr_yoy },
+    { label: '月活用户', value: g.mau, sub: g.arr_time, mom: g.mau_mom, qoq: g.mau_qoq, yoy: '+67%（从~6亿到>10亿）' },
+    { label: 'Google Cloud Q2', value: g.google_cloud_q2, sub: '含 AI 基础设施', mom: null, qoq: '+17%', yoy: '+36%' },
+    { label: '母公司市值', value: g.valuation_note, sub: 'Alphabet', mom: null, qoq: null, yoy: null },
+    { label: '当前挑战', value: '人才流失', sub: g.challenge, mom: null, qoq: null, yoy: null }
+  ];
+  var gg = document.getElementById('geminiCards');
+  gCards.forEach(function (c) {
+    gg.innerHTML += buildCardGemini(c);
+  });
+
+  // xAI 卡片
+  var x = D.grok;
+  var xCards = [
+    { label: '当前 ARR', value: x.arr_now, sub: x.arr_time, mom: x.arr_mom, qoq: x.arr_qoq, yoy: x.arr_yoy },
+    { label: '2025 年营收', value: x.revenue_2025, sub: '全年', mom: null, qoq: null, yoy: null },
+    { label: '2026 目标', value: x.revenue_2026_target, sub: '4倍跳跃', mom: null, qoq: null, yoy: x.revenue_yoy },
+    { label: '2025 运营亏损', value: x.operating_loss_2025, sub: '', mom: null, qoq: null, yoy: null },
+    { label: '月基础设施支出', value: x.monthly_infra_spend, sub: '', mom: null, qoq: null, yoy: null },
+    { label: '估值', value: x.valuation, sub: x.note, mom: null, qoq: null, yoy: null }
+  ];
+  var xg = document.getElementById('grokCards');
+  xCards.forEach(function (c) {
+    xg.innerHTML += buildCard(c);
+  });
+
+  // 横向对比表
+  var cb = document.getElementById('cmpBody');
+  D.comparison.dimensions.forEach(function (d) {
+    cb.innerHTML += '<tr><td>' + d.dim + '</td><td class="text-up">' + d.anthropic + '</td><td class="text-down">' + d.openai + '</td><td class="text-muted">' + d.gemini + '</td><td class="text-muted">' + d.grok + '</td></tr>';
+  });
+
+  // 其他玩家
+  var others = D.others;
+  var og2 = document.getElementById('othersCards');
+  var otherList = [
+    { label: others.coreweave.name, value: others.coreweave.metric },
+    { label: others.nscale.name, value: others.nscale.metric }
+  ];
+  otherList.forEach(function (c) {
+    og2.innerHTML += '<div class="card card-hover"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value" style="font-size:1rem;">' + c.value + '</div></div>';
+  });
+
+  SiteInit('business');
+})();
+</script>
+</body>
+</html>

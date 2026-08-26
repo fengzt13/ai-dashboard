@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成本与定价 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="Token 成本与定价、算力总支出、中国大厂资本开支趋势。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 成本与定价</div>
+      <h1>成本与定价：Token 成本与算力总支出</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- Token 支出指数图表 -->
+    <section class="section">
+      <div class="section-header"><h2>Token 支出指数（Silicon Data）</h2><span class="more text-muted">2025-01 至 2026-08</span></div>
+      <div class="chart-card">
+        <div class="chart-desc" id="tokenIdxDesc"></div>
+        <div class="chart-box" id="chartTokenIdx"></div>
+      </div>
+      <div class="card-grid" id="tokenIdxCards"></div>
+      <div class="note" id="tokenIdxNote"></div>
+    </section>
+
+    <!-- 推理侧总支出图表 -->
+    <section class="section">
+      <div class="section-header"><h2>推理侧总支出月度趋势</h2><span class="more text-muted">亿美元/月</span></div>
+      <div class="chart-card">
+        <div class="chart-desc" id="inferenceDesc"></div>
+        <div class="chart-box" id="chartInference"></div>
+      </div>
+      <div class="note" id="inferenceNote"></div>
+    </section>
+
+    <!-- 算力总支出 -->
+    <section class="section">
+      <div class="section-header"><h2>算力总支出 · 双引擎</h2></div>
+      <div class="card-grid" id="spendCards"></div>
+      <div class="note" id="spendTrendNote"></div>
+    </section>
+
+    <!-- 中国大厂资本开支 -->
+    <section class="section">
+      <div class="section-header"><h2>中国大厂 2026 Q2 资本开支</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>公司</th><th>Q2 2026 资本开支</th><th>同比</th><th>年化</th><th>趋势变化</th></tr></thead>
+          <tbody id="chinaCapexBody"></tbody>
+        </table>
+      </div>
+      <div class="chart-card" style="margin-top:1.2rem;">
+        <h3>中国大厂 AI 资本开支合计年化走势（亿元人民币）</h3>
+        <div class="chart-desc" id="chinaCapexTrendDesc"></div>
+        <div class="chart-box sm" id="chartChinaCapex"></div>
+      </div>
+    </section>
+
+    <!-- 趋势判断 -->
+    <section class="section">
+      <div class="section-header"><h2>趋势判断</h2></div>
+      <div class="framewrap" id="trendJudge"></div>
+    </section>
+
+    <!-- 价格里程碑 -->
+    <section class="section">
+      <div class="section-header"><h2>价格关键里程碑</h2></div>
+      <ul class="timeline" id="priceTimeline"></ul>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.cost;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：cost 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // 卡片生成工具函数
+  function trendBadge(label, value) {
+    if (!value) return '';
+    var isNegative = value.charAt(0) === '-';
+    var isNa = value === 'N/A' || value.indexOf('N/A') >= 0;
+    var cls = isNa ? 'trend-neutral' : (isNegative ? 'trend-down' : 'trend-up');
+    return '<span class="card-trend ' + cls + '"><b>' + label + '</b> ' + value + '</span>';
+  }
+
+  // Token 支出指数图表
+  var ti = D.token_expenditure_index;
+  var mt = ti.monthly_trend;
+  document.getElementById('tokenIdxDesc').textContent = mt.desc + '。当前状态：' + ti.status + ' — ' + ti.trend;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartTokenIdx', mt.labels, [
+      { name: 'Token 支出指数', data: mt.data, area: true, color: undefined }
+    ], { yName: '指数（基准100）' });
+  });
+
+  var tiCards = [
+    { label: '当前状态', value: ti.status, sub: ti.meaning, mom: ti.mom, qoq: ti.qoq, yoy: ti.yoy },
+    { label: '趋势判断', value: '性价比时代', sub: ti.trend, mom: null, qoq: null, yoy: null }
+  ];
+  var tg = document.getElementById('tokenIdxCards');
+  tiCards.forEach(function (c) {
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    var hasTrend = c.mom || c.qoq || c.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', c.mom);
+      html += trendBadge('QoQ', c.qoq);
+      html += trendBadge('YoY', c.yoy);
+      html += '</div>';
+    }
+    html += '</div>';
+    tg.innerHTML += html;
+  });
+  document.getElementById('tokenIdxNote').innerHTML = '<strong>含义：</strong>' + ti.implication;
+
+  // 推理侧总支出图表
+  var is = D.inference_spend_trend;
+  document.getElementById('inferenceDesc').textContent = is.desc;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartInference', is.labels, [
+      { name: '推理侧月支出', data: is.data, area: true, color: undefined }
+    ], { yName: '亿美元/月' });
+  });
+  var inferenceTrendHtml = '<strong>趋势：</strong>' + is.judgment + '<br><strong>年化运行率：</strong>' + is.annual_runrate +
+    '<div class="card-trends" style="margin-top:0.6rem;">' +
+    trendBadge('MoM', is.latest_mom) +
+    trendBadge('QoQ', is.latest_qoq) +
+    trendBadge('YoY', is.latest_yoy) +
+    '</div>';
+  document.getElementById('inferenceNote').innerHTML = inferenceTrendHtml;
+
+  // 算力总支出卡片
+  var ts = D.total_spend;
+  var sCards = [
+    { label: '推理侧年化支出', value: ts.inference_side.openrouter_annual, sub: ts.inference_side.desc },
+    { label: '基建侧表外承诺', value: ts.infrastructure_side.off_balance_sheet, sub: '五大云厂商+英伟达+博通' },
+    { label: 'Google 承诺', value: ts.infrastructure_side.google_commit, sub: '第一' },
+    { label: '云厂商承诺合计', value: ts.infrastructure_side.hyperscaler_total, sub: '' },
+    { label: '长期估算', value: ts.infrastructure_side.long_term_estimate, sub: '3-4万亿美元' }
+  ];
+  var sg = document.getElementById('spendCards');
+  sCards.forEach(function (c) {
+    sg.innerHTML += '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div></div>';
+  });
+  document.getElementById('spendTrendNote').innerHTML =
+    '<strong>推理侧趋势：</strong>' + ts.inference_side.trend_note + '<br>' +
+    '<strong>基建侧趋势：</strong>' + ts.infrastructure_side.trend_note;
+
+  // 中国大厂资本开支表
+  var cb = document.getElementById('chinaCapexBody');
+  D.total_spend.china_capex.forEach(function (c) {
+    cb.innerHTML += '<tr><td>' + c.company + '</td><td class="num">' + c.q2_2026 + '</td><td class="num ' + (c.yoy.indexOf('+') === 0 ? 'text-up' : '') + '">' + c.yoy + '</td><td class="num">' + c.annualized + '</td><td>' + c.note + '</td></tr>';
+  });
+
+  // 中国资本开支趋势图
+  var ct = D.total_spend.china_capex_trend;
+  document.getElementById('chinaCapexTrendDesc').textContent = ct.desc + '。' + ct.note;
+  CHARTS.ensure(function () {
+    CHARTS.bar('chartChinaCapex', ct.labels, [
+      { name: '合计年化资本开支', data: ct.data, color: undefined }
+    ], { yName: '亿元' });
+  });
+
+  // 趋势判断
+  var tj = document.getElementById('trendJudge');
+  var tjHtml = '<p style="line-height:2;"><span class="fw" style="color:var(--foreground);font-weight:600;">推理侧：</span>' + D.trend_judgement.inference + '</p>' +
+    '<p style="line-height:2;margin-top:0.4rem;"><span class="fw" style="color:var(--foreground);font-weight:600;">基建侧：</span>' + D.trend_judgement.infrastructure + '</p>' +
+    '<p style="line-height:2;margin-top:0.4rem;color:var(--muted);">' + D.trend_judgement.conclusion + '</p>';
+  tj.innerHTML = tjHtml;
+
+  // 价格里程碑
+  var pt = document.getElementById('priceTimeline');
+  var milestones = [
+    { date: '2025-03', event: '前十大模型周调用量 1.24 万亿 Token' },
+    { date: '2025-10', event: 'H100 合约价 $1.70/小时（低点）' },
+    { date: '2025-12', event: 'Token 支出指数高位，市场狂热期' },
+    { date: '2026-03', event: 'H100 合约价升至 $2.35/小时（+40%）' },
+    { date: '2026-08', event: 'Token 支出指数回落至 88，进入性价比时代' }
+  ];
+  milestones.forEach(function (t) {
+    pt.innerHTML += '<li class="timeline-item"><time>' + t.date + '</time><div class="tl-content"><div class="tl-title">' + t.event + '</div></div></li>';
+  });
+
+  SiteInit('cost');
+})();
+</script>
+</body>
+</html>

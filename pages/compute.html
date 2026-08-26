@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>算力供给 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="GPU 价格走势（美国市场）、云厂商经营数据、算力期货与基础设施。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 算力供给</div>
+      <h1>算力供给：GPU 价格与算力基础设施</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- GPU 价格表（美国市场） -->
+    <section class="section">
+      <div class="section-header"><h2>GPU 租赁价格（美国市场）</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>GPU</th><th>价格</th><th>变化</th><th>MoM</th><th>QoQ</th><th>YoY</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody id="gpuPriceBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- H100 价格历史走势 -->
+    <section class="section">
+      <div class="section-header"><h2>H100 一年期合约价走势（美元/小时）</h2><span class="more text-muted">Silicon Data H100 Rental Index</span></div>
+      <div class="chart-card">
+        <div class="chart-desc">2025.10 触底 $1.70 后强劲反弹至 $2.35（+40%），2026 年起维持高位。</div>
+        <div class="chart-box" id="chartGpuPrice"></div>
+      </div>
+    </section>
+
+    <!-- B200 价格趋势 -->
+    <section class="section">
+      <div class="section-header"><h2>B200 现货租赁价趋势</h2><span class="more text-muted">2个月涨48%</span></div>
+      <div class="chart-card">
+        <div class="chart-desc" id="b200Desc"></div>
+        <div class="chart-box sm" id="chartB200"></div>
+      </div>
+    </section>
+
+    <!-- GPU 云对比 -->
+    <section class="section">
+      <div class="section-header"><h2>GPU 云同型号时租价对比（2026-08-22）</h2></div>
+      <div class="card-grid" id="gpuCloudCards"></div>
+      <div class="note" id="gpuCloudNote"></div>
+    </section>
+
+    <!-- 云厂商经营数据 -->
+    <section class="section">
+      <div class="section-header"><h2>算力云厂商经营数据</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>公司</th><th>Q2 营收</th><th>在手订单</th><th>估值</th><th>备注</th></tr></thead>
+          <tbody id="cloudBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 算力期货 -->
+    <section class="section">
+      <div class="section-header"><h2>算力期货（CME）</h2></div>
+      <div class="framewrap" id="futures"></div>
+    </section>
+
+    <!-- 基础设施 -->
+    <section class="section">
+      <div class="section-header"><h2>基础设施信号</h2></div>
+      <div class="card-grid" id="infraCards"></div>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.compute;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：compute 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // GPU 价格表
+  var gb = document.getElementById('gpuPriceBody');
+  D.gpu_price_us.forEach(function (g) {
+    var changeCls = (g.change && g.change.indexOf('+') === 0) ? 'text-up' : 'text-muted';
+    var momHtml = g.mom ? '<span class="' + (g.mom.charAt(0) === '-' ? 'text-down' : 'text-up') + '">' + g.mom + '</span>' : '—';
+    var qoqHtml = g.qoq ? '<span class="' + (g.qoq.charAt(0) === '-' ? 'text-down' : (g.qoq.indexOf('N/A') >= 0 ? 'text-muted' : 'text-up')) + '">' + g.qoq + '</span>' : '—';
+    var yoyHtml = g.yoy ? '<span class="' + (g.yoy.charAt(0) === '-' ? 'text-down' : (g.yoy.indexOf('N/A') >= 0 ? 'text-muted' : 'text-up')) + '">' + g.yoy + '</span>' : '—';
+    gb.innerHTML += '<tr><td>' + g.gpu + '</td><td class="num">' + g.price + '</td><td class="num ' + changeCls + '">' + (g.change || '—') + '</td><td class="num">' + momHtml + '</td><td class="num">' + qoqHtml + '</td><td class="num">' + yoyHtml + '</td><td class="num">' + g.time + '</td><td>' + g.source + '</td></tr>';
+  });
+
+  // H100 价格历史
+  var ph = D.gpu_price_history;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartGpuPrice', ph.points.map(function (p) { return p.date; }), [
+      { name: 'H100 合约价', data: ph.points.map(function (p) { return p.price; }), area: true, color: undefined }
+    ], { yName: '美元/小时' });
+  });
+
+  // B200 价格趋势
+  var b2 = D.b200_price_history;
+  document.getElementById('b200Desc').textContent = b2.desc + ' · 来源：' + b2.source;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartB200', b2.points.map(function (p) { return p.date; }), [
+      { name: 'B200 现货指数', data: b2.points.map(function (p) { return p.price; }), area: true, color: undefined }
+    ], { yName: '指数（基准100）' });
+  });
+
+  // GPU 云对比
+  var gc = D.gpu_cloud_compare;
+  var cg = document.getElementById('gpuCloudCards');
+  gc.data.forEach(function (p) {
+    cg.innerHTML += '<div class="card"><div class="card-label">' + p.platform + '</div>' +
+      '<div class="card-value">' + p.price + '</div></div>';
+  });
+  document.getElementById('gpuCloudNote').innerHTML = '<strong>价差分析：</strong>' + gc.desc;
+
+  // 云厂商
+  var cloud = document.getElementById('cloudBody');
+  D.cloud_providers.forEach(function (c) {
+    cloud.innerHTML += '<tr><td>' + c.company + '</td><td class="num">' + c.q2_revenue + '</td><td class="num text-up">' + c.backlog + '</td><td class="num">' + c.valuation + '</td><td>' + c.note + '</td></tr>';
+  });
+
+  // 算力期货
+  var f = D.compute_futures;
+  document.getElementById('futures').innerHTML =
+    '<p style="line-height:2;"><b style="color:var(--accent);">' + f.status + '</b></p>' +
+    '<p style="line-height:2;color:var(--muted);margin-top:0.3rem;">合约：' + f.contract + '</p>' +
+    '<p style="line-height:2;color:var(--muted);margin-top:0.3rem;">意义：' + f.significance + '</p>';
+
+  // 基础设施
+  var inf = D.infrastructure;
+  var iCards = [
+    { label: '受阻 AIDC 项目', value: inf.data_center_blocked, sub: '美国 Q1 2026', mom: null, qoq: null, yoy: null },
+    { label: '功率密度', value: inf.power_density, sub: 'AIDC 单机柜', mom: null, qoq: null, yoy: null },
+    { label: '全球 AIDC 投资', value: inf.global_investment, sub: '涌入', mom: null, qoq: null, yoy: null },
+    { label: 'HBM 趋势', value: inf.hbm_trend, sub: '', mom: null, qoq: null, yoy: null },
+    { label: '单机架芯片数', value: inf.chip_per_rack, sub: '', mom: null, qoq: null, yoy: null },
+    { label: '全球 AI 资本开支', value: inf.hyperscaler_capex_2026, sub: '首次超油气', mom: null, qoq: null, yoy: null }
+  ];
+  var ig = document.getElementById('infraCards');
+  iCards.forEach(function (c) {
+    ig.innerHTML += '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value" style="font-size:1.1rem;">' + c.value + '</div><div class="card-sub">' + c.sub + '</div></div>';
+  });
+
+  SiteInit('compute');
+})();
+</script>
+</body>
+</html>

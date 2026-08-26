@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宏观格局 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="行业景气度、产业瓶颈、趋势信号与宏观结论。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 宏观格局</div>
+      <h1>宏观格局：行业景气度与产业趋势</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- 行业维度 -->
+    <section class="section">
+      <div class="section-header"><h2>行业景气度六维扫描</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>状态</th><th>详情</th></tr></thead>
+          <tbody id="dimBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 瓶颈 -->
+    <section class="section">
+      <div class="section-header"><h2>产业瓶颈</h2></div>
+      <div class="card-grid" id="bottleneckCards"></div>
+    </section>
+
+    <!-- 趋势信号 -->
+    <section class="section">
+      <div class="section-header"><h2>产业趋势信号</h2></div>
+      <div class="card-grid" id="signalCards"></div>
+    </section>
+
+    <!-- 宏观结论 -->
+    <section class="section">
+      <div class="section-header"><h2>宏观结论</h2></div>
+      <div class="framewrap" id="conclusions"></div>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.macro;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：macro 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // 行业维度表
+  var db = document.getElementById('dimBody');
+  D.industry_dimensions.forEach(function (d) {
+    db.innerHTML += '<tr><td>' + d.dim + '</td><td><span class="badge badge-accent">' + d.status + '</span></td><td>' + d.detail + '</td></tr>';
+  });
+
+  // 瓶颈
+  var bg = document.getElementById('bottleneckCards');
+  D.bottlenecks.forEach(function (b) {
+    bg.innerHTML += '<div class="card"><div class="card-label">' + b.type + '</div>' +
+      '<div class="card-value" style="font-size:1rem;">' + b.status + '</div>' +
+      '<div class="card-sub">影响：' + b.impact + '</div></div>';
+  });
+
+  // 趋势信号
+  var sg = document.getElementById('signalCards');
+  D.trend_signals.forEach(function (s) {
+    sg.innerHTML += '<div class="card card-hover"><div class="card-label">' + s.trend + '</div>' +
+      '<div class="card-value" style="font-size:1rem;">' + s.signal + '</div>' +
+      '<div class="card-sub">' + s.support + '</div></div>';
+  });
+
+  // 宏观结论
+  var cl = document.getElementById('conclusions');
+  var html = '<ol style="padding-left:1.2rem;line-height:2;color:var(--muted);font-size:0.9rem;">';
+  D.conclusions.forEach(function (c) {
+    html += '<li>' + c + '</li>';
+  });
+  html += '</ol>';
+  cl.innerHTML = html;
+
+  SiteInit('macro');
+})();
+</script>
+</body>
+</html>

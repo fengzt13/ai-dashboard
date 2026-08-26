@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>需求与采用 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="Token 调用量月度趋势、周度最新数据、模型排名与 Agent 趋势。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 需求与采用</div>
+      <h1>需求与采用：Token 调用量</h1>
+      <p class="subtitle" id="heroSub"></p>
+    </section>
+
+    <!-- 最新周数据 -->
+    <section class="section">
+      <div class="section-header"><h2>最新一周（2026-08-17 至 2026-08-23）</h2></div>
+      <div class="card-grid" id="weeklyCards"></div>
+    </section>
+
+    <!-- 月度趋势 -->
+    <section class="section">
+      <div class="section-header"><h2>全球 / 中国 / 美国 · 周调用量月度趋势（万亿 Token）</h2><span class="more text-muted">2025-03 至 2026-08</span></div>
+      <div class="chart-card">
+        <div class="chart-desc">全球周调用量持续攀升；中国自 2026-02 起超越美国并保持领先。</div>
+        <div class="chart-box" id="chartTokenTrend"></div>
+      </div>
+    </section>
+
+    <!-- 模型排名 -->
+    <section class="section">
+      <div class="section-header"><h2>全球周调用量模型 TOP 5</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>排名</th><th>模型</th><th>厂商</th><th>国家</th></tr></thead>
+          <tbody id="modelRankBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Agent 趋势 -->
+    <section class="section">
+      <div class="section-header"><h2>Agent 工作负载趋势</h2></div>
+      <div class="framewrap" id="agentTrend"></div>
+      <ul class="timeline" id="agentTimeline" style="margin-top:1rem;"></ul>
+    </section>
+
+    <div class="source-note" id="sourceNote"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.token;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：token 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source;
+
+  // 卡片生成工具函数
+  function trendBadge(label, value) {
+    if (!value) return '';
+    var isNegative = value.charAt(0) === '-';
+    var isNa = value === 'N/A' || value.indexOf('N/A') >= 0;
+    var cls = isNa ? 'trend-neutral' : (isNegative ? 'trend-down' : 'trend-up');
+    return '<span class="card-trend ' + cls + '"><b>' + label + '</b> ' + value + '</span>';
+  }
+
+  // 最新周数据卡片
+  var w = D.weekly_latest;
+  var wCards = [
+    { label: '全球周调用量', value: w.global + ' 万亿', sub: '环比 +' + w.global_wow + '%', delta: 'up', mom: w.global_mom, qoq: w.global_qoq, yoy: w.global_yoy },
+    { label: '中国周调用量', value: w.china + ' 万亿', sub: '环比 +' + w.china_wow + '%', delta: 'up', mom: w.china_mom, qoq: w.china_qoq, yoy: w.china_yoy },
+    { label: '美国周调用量', value: w.us + ' 万亿', sub: '环比 ' + w.us_wow + '%', delta: 'down', mom: w.us_mom, qoq: w.us_qoq, yoy: w.us_yoy },
+    { label: '中国领先周数', value: w.china_lead_weeks + ' 周', sub: '连续超越美国', delta: 'up', mom: null, qoq: null, yoy: null }
+  ];
+  var wg = document.getElementById('weeklyCards');
+  wCards.forEach(function (c) {
+    var cls = c.delta === 'up' ? 'delta-up' : 'delta-down';
+    var arrow = c.delta === 'up' ? '↑' : '↓';
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div>' +
+      '<div class="card-sub">' + c.sub + '</div>' +
+      '<div class="card-delta ' + cls + '">' + arrow + '</div>';
+    var hasTrend = c.mom || c.qoq || c.yoy;
+    if (hasTrend) {
+      html += '<div class="card-trends">';
+      html += trendBadge('MoM', c.mom);
+      html += trendBadge('QoQ', c.qoq);
+      html += trendBadge('YoY', c.yoy);
+      html += '</div>';
+    }
+    html += '</div>';
+    wg.innerHTML += html;
+  });
+
+  // 月度趋势图
+  var m = D.monthly;
+  CHARTS.ensure(function () {
+    CHARTS.line('chartTokenTrend', m.labels, [
+      { name: '全球', data: m.global_weekly, color: undefined, area: true },
+      { name: '中国', data: m.china_weekly, color: undefined, area: true },
+      { name: '美国', data: m.us_weekly, color: undefined, area: false }
+    ], { yName: '万亿 Token' });
+  });
+
+  // 模型排名
+  var tb = document.getElementById('modelRankBody');
+  D.model_ranking.forEach(function (r) {
+    tb.innerHTML += '<tr><td>' + r.rank + '</td><td>' + r.model + '</td><td>' + r.vendor + '</td><td><span class="badge badge-accent">' + r.country + '</span></td></tr>';
+  });
+
+  // Agent 趋势
+  var at = document.getElementById('agentTrend');
+  at.innerHTML = '<p>' + D.agent_trend.desc + '</p>';
+  var atl = document.getElementById('agentTimeline');
+  D.agent_trend.milestones.forEach(function (t) {
+    atl.innerHTML += '<li class="timeline-item"><time>' + t.date + '</time><div class="tl-content"><div class="tl-title">' + t.event + '</div></div></li>';
+  });
+
+  SiteInit('token');
+})();
+</script>
+</body>
+</html>

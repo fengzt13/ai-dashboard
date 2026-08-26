@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "产出与消耗：Token 产出与模型生态",
+    "updated": "2026-08-26",
+    "source": "OpenRouter / a16z 联合报告 / 公开报道",
+    "note": "2024年1月~2025年数据为公开报告锚点；2026年数据来自 OpenRouter 周度公开数据。"
+  },
+  "key_metrics": {
+    "openrouter_weekly_now": ">90万亿",
+    "openrouter_weekly_now_mom": "+37%（7月75→8月93.3万亿）",
+    "openrouter_weekly_now_qoq": "+86%（Q2均值~50→Q3首月93.3）",
+    "openrouter_weekly_now_yoy": "+522%（2025.08 ~15→2026.08 93.3万亿）",
+    "openrouter_weekly_2024": "~100亿",
+    "growth_times": "9000倍",
+    "annual_token_2026q1": ">1千万亿",
+    "annual_inference_spend": "~$10亿",
+    "annual_spend_mom": "+33%（月支出$9→$12亿）",
+    "annual_spend_qoq": "+100%（Q1 ~$6→Q2 ~$12亿/月）",
+    "annual_spend_yoy": "+1000%（2025.03 $0.3→2026.08 $12亿/月）",
+    "models_count": "90+",
+    "models_count_yoy": "+50%（2025.08 ~60个→2026.08 90+）"
+  },
+  "growth_curve": {
+    "points": [
+      { "date": "2024-01", "weekly_tokens": 0.01, "note": "约100亿" },
+      { "date": "2024-06", "weekly_tokens": 0.1, "note": "估算" },
+      { "date": "2025-01", "weekly_tokens": 0.5, "note": "估算" },
+      { "date": "2025-03", "weekly_tokens": 1.2, "note": "前十大1.24万亿" },
+      { "date": "2025-06", "weekly_tokens": 3.0, "note": "估算" },
+      { "date": "2025-09", "weekly_tokens": 7.0, "note": "估算" },
+      { "date": "2025-12", "weekly_tokens": 15.0, "note": "全年超100万亿" },
+      { "date": "2026-02", "weekly_tokens": 24.0, "note": "中国超美国" },
+      { "date": "2026-05", "weekly_tokens": 55.0, "note": "估算" },
+      { "date": "2026-08", "weekly_tokens": 93.3, "note": "最新" }
+    ]
+  },
+  "ecosystem": {
+    "china": {
+      "weekly": "40.48万亿",
+      "models": ["DeepSeek-V4", "Kimi K3 (2.8万亿参数)", "Qwen3.8-Max (2.4万亿)", "GLM-5.2", "MiMo-V2.5"],
+      "open_source": "旗舰级全量开源（全球最大开源模型 Kimi K3）",
+      "trend": "调用量持续上升（+9.88% WoW）"
+    },
+    "us": {
+      "weekly": "9.66万亿",
+      "models": ["GPT-4o/5", "Claude", "Gemini"],
+      "open_source": "有限开源（Codex Harness Apache 2.0）",
+      "trend": "调用量下滑（-5.85% WoW）"
+    }
+  },
+  "open_source_share": {
+    "desc": "OpenRouter 2025年度报告：开源模型使用量占比约33%，中国市场开源主导",
+    "milestones": [
+      { "date": "2024", "event": "开源模型占比较低，闭源主导" },
+      { "date": "2025-06", "event": "DeepSeek V3 发布后开源占比快速上升" },
+      { "date": "2025-12", "event": "开源占比约 33%" },
+      { "date": "2026-08", "event": "全球调用量前五全部为中国模型" }
+    ]
+  }
+}
