@@ -17,6 +17,12 @@
     tagline2: 'AI 追踪'
   };
 
+  // 根据当前页面位置自动计算路径前缀
+  // 首页(index.html)用 "pages/xxx.html"，子页面(pages/xxx.html)用 "../pages/xxx.html"
+  var isInSubDir = window.location.pathname.indexOf('/pages/') >= 0 ||
+    (window.location.protocol === 'file:' && window.location.pathname.replace(/\\/g, '/').indexOf('/pages/') >= 0);
+  var PATH_PREFIX = isInSubDir ? '../' : '';
+
   var NAV_ITEMS = [
     { href: 'index.html', label: '数据总览', key: 'index' },
     { href: 'pages/token.html', label: '需求与采用', key: 'token' },
@@ -27,18 +33,23 @@
     { href: 'pages/macro.html', label: '宏观格局', key: 'macro' },
   ];
 
+  // 给每个链接加上路径前缀
+  NAV_ITEMS.forEach(function (item) {
+    item.fullHref = PATH_PREFIX + item.href;
+  });
+
   function buildHeader(activeKey) {
     var header = document.createElement('header');
     header.innerHTML = `
       <div class="nav-inner">
-        <a class="logo" href="index.html">
+        <a class="logo" href="${PATH_PREFIX}index.html">
           <span class="logo-badge">AI</span>
           <span class="logo-text"><span class="logo-line1">${SITE.tagline1}</span><span class="logo-line2">${SITE.tagline2}</span></span>
         </a>
         <nav class="desktop">
           ${NAV_ITEMS.map(function (item) {
             var active = item.key === activeKey ? ' active' : '';
-            return `<a class="nav-link${active}" href="${item.href}">${item.label}</a>`;
+            return `<a class="nav-link${active}" href="${item.fullHref}">${item.label}</a>`;
           }).join('')}
         </nav>
         <div class="nav-actions">
@@ -53,7 +64,7 @@
       <div class="mobile-nav" id="mobileNav">
         ${NAV_ITEMS.map(function (item) {
           var active = item.key === activeKey ? ' active' : '';
-          return `<a class="nav-link${active}" href="${item.href}">${item.label}</a>`;
+          return `<a class="nav-link${active}" href="${item.fullHref}">${item.label}</a>`;
         }).join('')}
       </div>
     `;
@@ -95,16 +106,16 @@
           </div>
           <div class="footer-col">
             <h4>板块</h4>
-            <a href="index.html">数据总览</a>
-            <a href="pages/token.html">需求与采用</a>
-            <a href="pages/output.html">产出与消耗</a>
-            <a href="pages/cost.html">成本与定价</a>
+            <a href="${PATH_PREFIX}index.html">数据总览</a>
+            <a href="${PATH_PREFIX}pages/token.html">需求与采用</a>
+            <a href="${PATH_PREFIX}pages/output.html">产出与消耗</a>
+            <a href="${PATH_PREFIX}pages/cost.html">成本与定价</a>
           </div>
           <div class="footer-col">
             <h4>更多</h4>
-            <a href="pages/compute.html">算力供给</a>
-            <a href="pages/business.html">商业表现</a>
-            <a href="pages/macro.html">宏观格局</a>
+            <a href="${PATH_PREFIX}pages/compute.html">算力供给</a>
+            <a href="${PATH_PREFIX}pages/business.html">商业表现</a>
+            <a href="${PATH_PREFIX}pages/macro.html">宏观格局</a>
           </div>
         </div>
         <div class="footer-bottom">
