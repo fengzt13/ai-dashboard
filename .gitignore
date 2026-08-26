@@ -8,3 +8,6 @@ Thumbs.db
 # 编辑器
 .vscode/
 .idea/
+
+# SSH �ļ�
+known_hosts
