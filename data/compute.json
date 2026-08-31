@@ -44,11 +44,12 @@
     ]
   },
   "cloud_providers": [
-    { "company": "CoreWeave", "q2_revenue": "$25.8亿（+112% YoY）", "backlog": "$1,040亿", "valuation": "~$463亿", "note": "推理平台 ARR 数月内从 $100万→$1亿+" },
-    { "company": "Nscale", "q2_revenue": ">$1亿", "backlog": "$510亿", "valuation": "目标$250亿", "note": "拟9月 IPO" }
+    { "company": "CoreWeave", "q2_revenue": "$25.8亿（+112% YoY）", "backlog": "$1,040亿", "valuation": "~$463亿", "data_date": "2026-Q2", "note": "推理平台 ARR 数月内从 $100万→$1亿+" },
+    { "company": "Nscale", "q2_revenue": ">$1亿", "backlog": "$510亿", "valuation": "目标$250亿", "data_date": "2026-Q2", "note": "拟9月 IPO" }
   ],
   "compute_futures": {
     "status": "CME 算力期货 10月5日 NYMEX 挂牌（待 CFTC 批准），合约以 Silicon Data 基准指数现金结算",
+    "status_data_date": "2026-08-30",
     "contract": "H100 GPU 小时租赁费（730小时/月基准）+ B200 GPU 小时租赁费",
     "significance": "算力从'长协定价'走向'全球金融定价'，类似1983年原油期货",
     "h100_benchmark": "$2.68/GPU小时（Silicon Data 基准）",
@@ -56,10 +57,16 @@
   },
   "infrastructure": {
     "data_center_blocked": "美国 75 个 AIDC 项目受阻/延期，总价值 ~$1,300亿（Q1 2026）",
+    "data_center_blocked_data_date": "2026-Q1",
     "power_density": "AIDC 单机柜功率 20kW-100kW+",
+    "power_density_data_date": "2026-08",
     "global_investment": "~$16万亿 涌入 AIDC",
+    "global_investment_data_date": "2026-08-26",
     "hbm_trend": "HBM 涨价，存储超级周期",
+    "hbm_trend_data_date": "2026-08",
     "chip_per_rack": "单 AI 服务器机架芯片数突破 4,500 颗",
-    "hyperscaler_capex_2026": "全球 AI 资本开支预计 $7,650亿，首次超油气 ($6,810亿)"
+    "chip_per_rack_data_date": "2026-08",
+    "hyperscaler_capex_2026": "全球 AI 资本开支预计 $7,650亿，首次超油气 ($6,810亿)",
+    "hyperscaler_capex_2026_data_date": "2026-08-26"
   }
 }

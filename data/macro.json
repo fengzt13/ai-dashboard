@@ -6,36 +6,36 @@
     "note": "宏观数据多为季度/事件性数据，以月频汇总呈现。"
   },
   "industry_dimensions": [
-    { "dim": "需求景气度", "status": "历史峰值", "detail": "全球 Token 周调用量 93.3万亿，2年增长9000倍，Agent Token 消耗达人类 5.2 倍（占比71%）" },
-    { "dim": "供给紧张度", "status": "全面紧张", "detail": "H100 基准价升至$2.68/h（+58%）、B200基准$5.66/h；美国75个 AIDC 项目受阻；HBM 存储超级周期" },
-    { "dim": "算力成本趋势", "status": "不降反升", "detail": "GPU 租赁价持续反弹、电力成最大瓶颈、算力期货10月挂牌金融化启动" },
-    { "dim": "行业营收增速", "status": "加速分化", "detail": "头部公司 ARR 合计突破 $1,000亿，Anthropic Q3 ARR ~$540亿追击 OpenAI $540亿；企业 API 跑通盈利" },
-    { "dim": "资本投入力度", "status": "史无前例", "detail": "$3.1万亿表外承诺、$16万亿涌入 AIDC、AI 资本开支$7,500亿首次超油气；AI企业债逼近$5,000亿" },
-    { "dim": "商业盈利能力", "status": "首现曙光", "detail": "Anthropic 首次单季盈利 $5.59亿，行业从'烧钱换增长'向'ROI 决胜'转折" }
+    { "dim": "需求景气度", "status": "历史峰值", "data_date": "2026-08-23", "detail": "全球 Token 周调用量 93.3万亿，2年增长9000倍，Agent Token 消耗达人类 5.2 倍（占比71%）" },
+    { "dim": "供给紧张度", "status": "全面紧张", "data_date": "2026-08-30", "detail": "H100 基准价升至$2.68/h（+58%）、B200基准$5.66/h；美国75个 AIDC 项目受阻；HBM 存储超级周期" },
+    { "dim": "算力成本趋势", "status": "不降反升", "data_date": "2026-08-30", "detail": "GPU 租赁价持续反弹、电力成最大瓶颈、算力期货10月挂牌金融化启动" },
+    { "dim": "行业营收增速", "status": "加速分化", "data_date": "2026-08-20", "detail": "头部公司 ARR 合计突破 $1,000亿，Anthropic Q3 ARR ~$540亿追击 OpenAI $540亿；企业 API 跑通盈利" },
+    { "dim": "资本投入力度", "status": "史无前例", "data_date": "2026-08-26", "detail": "$3.1万亿表外承诺、$16万亿涌入 AIDC、AI 资本开支$7,500亿首次超油气；AI企业债逼近$5,000亿" },
+    { "dim": "商业盈利能力", "status": "首现曙光", "data_date": "2026-Q2", "detail": "Anthropic 首次单季盈利 $5.59亿，行业从'烧钱换增长'向'ROI 决胜'转折" }
   ],
   "bottlenecks": [
-    { "type": "电力", "status": "AIDC 功率密度 20-100kW/rack，75个项目 $1,300亿受阻", "impact": "算力供给增长受限" },
-    { "type": "GPU 供给", "status": "H100 基准价$2.68/h（+58%），B200 基准$5.66/h", "impact": "推理成本上升" },
-    { "type": "英伟达芯片产能", "status": "Blackwell/B200 产量受限于 CoWoS 封装产能；台积电 70%+ CoWoS 产能供给英伟达，仍供不应求", "impact": "高端 AI 芯片交付周期拉长，B200 现货价格 2 个月涨 48%" },
-    { "type": "台积电 CoWoS 封装", "status": "CoWoS 良率达 99%（5.5 倍光罩尺寸），但产能严重不足；HBM 订货排期至 2027 年；台积电开始将部分 CoWoS 工序外包给 OSAT 厂商", "impact": "先进封装成为 AI 芯片产能核心瓶颈，限制全行业 GPU 出货量" },
-    { "type": "HBM 存储", "status": "涨价中，存储超级周期，订货排期至 2027", "impact": "GPU 产能受限" },
-    { "type": "人才", "status": "核心人才流动频繁（Jeff Dean 离职、OpenAI 高管离职潮）", "impact": "组织不稳定性" }
+    { "type": "电力", "status": "AIDC 功率密度 20-100kW/rack，75个项目 $1,300亿受阻", "data_date": "2026-Q1", "impact": "算力供给增长受限" },
+    { "type": "GPU 供给", "status": "H100 基准价$2.68/h（+58%），B200 基准$5.66/h", "data_date": "2026-08-30", "impact": "推理成本上升" },
+    { "type": "英伟达芯片产能", "status": "Blackwell/B200 产量受限于 CoWoS 封装产能；台积电 70%+ CoWoS 产能供给英伟达，仍供不应求", "data_date": "2026-08", "impact": "高端 AI 芯片交付周期拉长，B200 现货价格 2 个月涨 48%" },
+    { "type": "台积电 CoWoS 封装", "status": "CoWoS 良率达 99%（5.5 倍光罩尺寸），但产能严重不足；HBM 订货排期至 2027 年；台积电开始将部分 CoWoS 工序外包给 OSAT 厂商", "data_date": "2026-08", "impact": "先进封装成为 AI 芯片产能核心瓶颈，限制全行业 GPU 出货量" },
+    { "type": "HBM 存储", "status": "涨价中，存储超级周期，订货排期至 2027", "data_date": "2026-08", "impact": "GPU 产能受限" },
+    { "type": "人才", "status": "核心人才流动频繁（Jeff Dean 离职、OpenAI 高管离职潮）", "data_date": "2026-08", "impact": "组织不稳定性" }
   ],
   "trend_signals": [
-    { "trend": "Agent 经济崛起", "signal": "Agent Token 占比快速攀升，成为增长核心引擎", "support": "OpenRouter" },
-    { "trend": "AI 自我消费 AI", "signal": "Agent Token 消耗达人类 5.2 倍，占比从 2%冲到 71%", "support": "OpenRouter" },
-    { "trend": "算力金融化", "signal": "CME 10月推出算力期货（H100$2.68+B200$5.66）", "support": "CME SER-9785" },
-    { "trend": "头部模型涨价", "signal": "DeepSeek V4 API 涨价最高 1100%，引入峰谷定价", "support": "DeepSeek 公告" },
-    { "trend": "Token 经济性价比化", "signal": "Silicon Data 支出指数停滞/回落，企业回归理性消耗", "support": "Silicon Data" },
-    { "trend": "行业首次实现盈利", "signal": "Anthropic Q2 调整后盈利 $5.59亿", "support": "公司披露" },
-    { "trend": "算力供给紧张持续", "signal": "CoreWeave $1,040亿在手订单", "support": "财报" },
-    { "trend": "AI Capex 加速", "signal": "$16万亿涌入 AIDC，表外承诺 $3.1万亿，AI企业债逼近$5,000亿", "support": "高盛/行业统计" },
-    { "trend": "AI 资本开支超油气", "signal": "2026年 AI $7,650亿 > 油气 $6,810亿", "support": "摩根士丹利" },
-    { "trend": "先进封装成核心瓶颈", "signal": "台积电 CoWoS 产能 70%+ 供英伟达，良率 99% 但供不应求，HBM 排到 2027", "support": "中信建投研报 / 台积电财报" },
-    { "trend": "先进封装市场快速扩张", "signal": "2025 年 $550 亿，预计 2031 年超 $1,200 亿，台积电开始外包 OSAT", "support": "中信建投研报" },
-    { "trend": "AI 路由层并购", "signal": "Stripe $70亿+收购 OpenRouter，AI基建最大并购", "support": "彭博/Axios" },
-    { "trend": "GPT-6/Astra 临近", "signal": "OpenAI Astra 内测中，预计9月初发布，定位AGI门槛", "support": "The Information/时代杂志" },
-    { "trend": "行业进入 ROI 决胜期", "signal": "盈利与亏损公司并存，商业模型效率成为分水岭", "support": "中金研报" }
+    { "trend": "Agent 经济崛起", "signal": "Agent Token 占比快速攀升，成为增长核心引擎", "data_date": "2026-08-23", "support": "OpenRouter" },
+    { "trend": "AI 自我消费 AI", "signal": "Agent Token 消耗达人类 5.2 倍，占比从 2%冲到 71%", "data_date": "2026-08-10", "support": "OpenRouter" },
+    { "trend": "算力金融化", "signal": "CME 10月推出算力期货（H100$2.68+B200$5.66）", "data_date": "2026-08-30", "support": "CME SER-9785" },
+    { "trend": "头部模型涨价", "signal": "DeepSeek V4 API 涨价最高 1100%，引入峰谷定价", "data_date": "2026-08-17", "support": "DeepSeek 公告" },
+    { "trend": "Token 经济性价比化", "signal": "Silicon Data 支出指数停滞/回落，企业回归理性消耗", "data_date": "2026-08-31", "support": "Silicon Data" },
+    { "trend": "行业首次实现盈利", "signal": "Anthropic Q2 调整后盈利 $5.59亿", "data_date": "2026-Q2", "support": "公司披露" },
+    { "trend": "算力供给紧张持续", "signal": "CoreWeave $1,040亿在手订单", "data_date": "2026-Q2", "support": "财报" },
+    { "trend": "AI Capex 加速", "signal": "$16万亿涌入 AIDC，表外承诺 $3.1万亿，AI企业债逼近$5,000亿", "data_date": "2026-08-26", "support": "高盛/行业统计" },
+    { "trend": "AI 资本开支超油气", "signal": "2026年 AI $7,650亿 > 油气 $6,810亿", "data_date": "2026-08-26", "support": "摩根士丹利" },
+    { "trend": "先进封装成核心瓶颈", "signal": "台积电 CoWoS 产能 70%+ 供英伟达，良率 99% 但供不应求，HBM 排到 2027", "data_date": "2026-08", "support": "中信建投研报 / 台积电财报" },
+    { "trend": "先进封装市场快速扩张", "signal": "2025 年 $550 亿，预计 2031 年超 $1,200 亿，台积电开始外包 OSAT", "data_date": "2026-08", "support": "中信建投研报" },
+    { "trend": "AI 路由层并购", "signal": "Stripe $70亿+收购 OpenRouter，AI基建最大并购", "data_date": "2026-08", "support": "彭博/Axios" },
+    { "trend": "GPT-6/Astra 临近", "signal": "OpenAI Astra 内测中，预计9月初发布，定位AGI门槛", "data_date": "2026-08", "support": "The Information/时代杂志" },
+    { "trend": "行业进入 ROI 决胜期", "signal": "盈利与亏损公司并存，商业模型效率成为分水岭", "data_date": "2026-Q2", "support": "中金研报" }
   ],
   "conclusions": [
     "AI 行业需求仍处爆发式增长，景气度处于历史峰值：Token 调用量指数级攀升，Agent Token 消耗已达人类 5.2 倍，AI 自我消费 AI 成为新常态",

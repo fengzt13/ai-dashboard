@@ -41,7 +41,7 @@
       <div class="section-header"><h2>全球周调用量模型 TOP 5</h2></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>排名</th><th>模型</th><th>厂商</th><th>国家</th></tr></thead>
+          <thead><tr><th>排名</th><th>模型</th><th>厂商</th><th>国家</th><th>数据截至</th></tr></thead>
           <tbody id="modelRankBody"></tbody>
         </table>
       </div>
@@ -78,10 +78,10 @@
   // 最新周数据卡片
   var w = D.weekly_latest;
   var wCards = [
-    { label: '全球周调用量', value: w.global + ' 万亿', sub: '环比 +' + w.global_wow + '%', delta: 'up', mom: w.global_mom, qoq: w.global_qoq, yoy: w.global_yoy },
-    { label: '中国周调用量', value: w.china + ' 万亿', sub: '环比 +' + w.china_wow + '%', delta: 'up', mom: w.china_mom, qoq: w.china_qoq, yoy: w.china_yoy },
-    { label: '美国周调用量', value: w.us + ' 万亿', sub: '环比 ' + w.us_wow + '%', delta: 'down', mom: w.us_mom, qoq: w.us_qoq, yoy: w.us_yoy },
-    { label: '中国领先周数', value: w.china_lead_weeks + ' 周', sub: '连续超越美国', delta: 'up', mom: null, qoq: null, yoy: null }
+    { label: '全球周调用量', value: w.global + ' 万亿', sub: '环比 +' + w.global_wow + '%', delta: 'up', mom: w.global_mom, qoq: w.global_qoq, yoy: w.global_yoy, data_date: w.data_date },
+    { label: '中国周调用量', value: w.china + ' 万亿', sub: '环比 +' + w.china_wow + '%', delta: 'up', mom: w.china_mom, qoq: w.china_qoq, yoy: w.china_yoy, data_date: w.data_date },
+    { label: '美国周调用量', value: w.us + ' 万亿', sub: '环比 ' + w.us_wow + '%', delta: 'down', mom: w.us_mom, qoq: w.us_qoq, yoy: w.us_yoy, data_date: w.data_date },
+    { label: '中国领先周数', value: w.china_lead_weeks + ' 周', sub: '连续超越美国', delta: 'up', mom: null, qoq: null, yoy: null, data_date: w.data_date }
   ];
   var wg = document.getElementById('weeklyCards');
   wCards.forEach(function (c) {
@@ -98,6 +98,9 @@
       html += trendBadge('QoQ', c.qoq);
       html += trendBadge('YoY', c.yoy);
       html += '</div>';
+    }
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
     }
     html += '</div>';
     wg.innerHTML += html;
@@ -116,7 +119,7 @@
   // 模型排名
   var tb = document.getElementById('modelRankBody');
   D.model_ranking.forEach(function (r) {
-    tb.innerHTML += '<tr><td>' + r.rank + '</td><td>' + r.model + '</td><td>' + r.vendor + '</td><td><span class="badge badge-accent">' + r.country + '</span></td></tr>';
+    tb.innerHTML += '<tr><td>' + r.rank + '</td><td>' + r.model + '</td><td>' + r.vendor + '</td><td><span class="badge badge-accent">' + r.country + '</span></td><td class="num text-muted">' + (r.data_date || '—') + '</td></tr>';
   });
 
   // Agent 趋势

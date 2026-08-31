@@ -132,6 +132,9 @@
       html += trendBadge('YoY', m.yoy);
       html += '</div>';
     }
+    if (m.data_date) {
+      html += '<div class="card-date">' + m.data_date + '</div>';
+    }
     card.innerHTML = html;
     grid.appendChild(card);
   });

@@ -62,7 +62,7 @@
       <div class="section-header"><h2>算力云厂商经营数据</h2></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>公司</th><th>Q2 营收</th><th>在手订单</th><th>估值</th><th>备注</th></tr></thead>
+          <thead><tr><th>公司</th><th>Q2 营收</th><th>在手订单</th><th>估值</th><th>数据截至</th><th>备注</th></tr></thead>
           <tbody id="cloudBody"></tbody>
         </table>
       </div>
@@ -131,7 +131,7 @@
   // 云厂商
   var cloud = document.getElementById('cloudBody');
   D.cloud_providers.forEach(function (c) {
-    cloud.innerHTML += '<tr><td>' + c.company + '</td><td class="num">' + c.q2_revenue + '</td><td class="num text-up">' + c.backlog + '</td><td class="num">' + c.valuation + '</td><td>' + c.note + '</td></tr>';
+    cloud.innerHTML += '<tr><td>' + c.company + '</td><td class="num">' + c.q2_revenue + '</td><td class="num text-up">' + c.backlog + '</td><td class="num">' + c.valuation + '</td><td class="num text-muted">' + (c.data_date || '—') + '</td><td>' + c.note + '</td></tr>';
   });
 
   // 算力期货
@@ -144,17 +144,22 @@
   // 基础设施
   var inf = D.infrastructure;
   var iCards = [
-    { label: '受阻 AIDC 项目', value: inf.data_center_blocked, sub: '美国 Q1 2026', mom: null, qoq: null, yoy: null },
-    { label: '功率密度', value: inf.power_density, sub: 'AIDC 单机柜', mom: null, qoq: null, yoy: null },
-    { label: '全球 AIDC 投资', value: inf.global_investment, sub: '涌入', mom: null, qoq: null, yoy: null },
-    { label: 'HBM 趋势', value: inf.hbm_trend, sub: '', mom: null, qoq: null, yoy: null },
-    { label: '单机架芯片数', value: inf.chip_per_rack, sub: '', mom: null, qoq: null, yoy: null },
-    { label: '全球 AI 资本开支', value: inf.hyperscaler_capex_2026, sub: '首次超油气', mom: null, qoq: null, yoy: null }
+    { label: '受阻 AIDC 项目', value: inf.data_center_blocked, sub: '美国 Q1 2026', data_date: inf.data_center_blocked_data_date },
+    { label: '功率密度', value: inf.power_density, sub: 'AIDC 单机柜', data_date: inf.power_density_data_date },
+    { label: '全球 AIDC 投资', value: inf.global_investment, sub: '涌入', data_date: inf.global_investment_data_date },
+    { label: 'HBM 趋势', value: inf.hbm_trend, sub: '', data_date: inf.hbm_trend_data_date },
+    { label: '单机架芯片数', value: inf.chip_per_rack, sub: '', data_date: inf.chip_per_rack_data_date },
+    { label: '全球 AI 资本开支', value: inf.hyperscaler_capex_2026, sub: '首次超油气', data_date: inf.hyperscaler_capex_2026_data_date }
   ];
   var ig = document.getElementById('infraCards');
   iCards.forEach(function (c) {
-    ig.innerHTML += '<div class="card"><div class="card-label">' + c.label + '</div>' +
-      '<div class="card-value" style="font-size:1.1rem;">' + c.value + '</div><div class="card-sub">' + c.sub + '</div></div>';
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value" style="font-size:1.1rem;">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
+    }
+    html += '</div>';
+    ig.innerHTML += html;
   });
 
   SiteInit('compute');

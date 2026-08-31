@@ -26,7 +26,7 @@
       <div class="section-header"><h2>行业景气度六维扫描</h2></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>维度</th><th>状态</th><th>详情</th></tr></thead>
+          <thead><tr><th>维度</th><th>状态</th><th>数据截至</th><th>详情</th></tr></thead>
           <tbody id="dimBody"></tbody>
         </table>
       </div>
@@ -65,7 +65,7 @@
   // 行业维度表
   var db = document.getElementById('dimBody');
   D.industry_dimensions.forEach(function (d) {
-    db.innerHTML += '<tr><td>' + d.dim + '</td><td><span class="badge badge-accent">' + d.status + '</span></td><td>' + d.detail + '</td></tr>';
+    db.innerHTML += '<tr><td>' + d.dim + '</td><td><span class="badge badge-accent">' + d.status + '</span></td><td class="num text-muted">' + (d.data_date || '—') + '</td><td>' + d.detail + '</td></tr>';
   });
 
   // 瓶颈
@@ -73,7 +73,8 @@
   D.bottlenecks.forEach(function (b) {
     bg.innerHTML += '<div class="card"><div class="card-label">' + b.type + '</div>' +
       '<div class="card-value" style="font-size:1rem;">' + b.status + '</div>' +
-      '<div class="card-sub">影响：' + b.impact + '</div></div>';
+      '<div class="card-sub">影响：' + b.impact + '</div>' +
+      (b.data_date ? '<div class="card-date">' + b.data_date + '</div>' : '') + '</div>';
   });
 
   // 趋势信号
@@ -81,7 +82,8 @@
   D.trend_signals.forEach(function (s) {
     sg.innerHTML += '<div class="card card-hover"><div class="card-label">' + s.trend + '</div>' +
       '<div class="card-value" style="font-size:1rem;">' + s.signal + '</div>' +
-      '<div class="card-sub">' + s.support + '</div></div>';
+      '<div class="card-sub">' + s.support + '</div>' +
+      (s.data_date ? '<div class="card-date">' + s.data_date + '</div>' : '') + '</div>';
   });
 
   // 宏观结论

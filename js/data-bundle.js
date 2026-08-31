@@ -16,13 +16,17 @@ window.AIDATA['business'] = {
     "arr_qoq": "+242%（Q1末$190亿→Q2末$650亿）",
     "arr_yoy": "+1500%（2025.07 ~$40亿→2026.07 $650亿）",
     "q2_2026_revenue": "$115亿+",
+    "q2_2026_revenue_data_date": "2026-Q2",
     "q1_2026_revenue": "$47.3亿",
+    "q1_2026_revenue_data_date": "2026-Q1",
     "q2_revenue_qoq": "+143%（vs Q1 $47.3亿）",
     "q2_yoy": "~14倍（vs 2025Q2 $7.87亿）",
     "q2_operating_profit": "$5.59亿（首次单季盈利）",
+    "q2_operating_profit_data_date": "2026-Q2",
     "q2_profit_qoq": "+1018%（Q1 +$0.5亿→Q2 +$5.59亿）",
     "revenue_structure": "75-85% 企业级 API",
     "valuation_secondary": "~$1.5万亿",
+    "valuation_secondary_data_date": "2026-08",
     "ipo_target": "朝$2万亿进行",
     "arr_timeline": [
       { "date": "2025-01", "arr": 10, "note": "$10亿" },
@@ -44,14 +48,19 @@ window.AIDATA['business'] = {
     "arr_qoq": "+116%（Q1末$250亿→Q3末~$540亿）",
     "arr_yoy": "+350%（2025.07 $120亿→2026.08 ~$540亿）",
     "q2_2026_revenue": "$67亿",
+    "q2_2026_revenue_data_date": "2026-Q2",
     "q1_2026_revenue": "$57亿",
+    "q1_2026_revenue_data_date": "2026-Q1",
     "q2_qoq": "+18%（较 Q1 的 35.7% 近乎腰斩）",
     "q2_revenue_yoy": "+131%（vs 2025Q2 ~$29亿）",
     "q2_operating_loss": "$123亿",
+    "q2_operating_loss_data_date": "2026-Q2",
     "q1_operating_loss": "$93亿",
+    "q1_operating_loss_data_date": "2026-Q1",
     "q2_loss_qoq": "+32%（亏损扩大，Q1 $93亿→Q2 $123亿）",
     "revenue_structure": "65%+ C 端订阅",
     "valuation_secondary": "~$8,520亿",
+    "valuation_secondary_data_date": "2026-08",
     "burn_ratio": "每赚 $1 烧掉 >$1.8",
     "profit_estimate": "2029-2030年才可能转正",
     "ipo_target": "2027年（CFO全员会：如业务加速可能更早）",
@@ -74,10 +83,12 @@ window.AIDATA['business'] = {
     "arr_qoq": "+25%（估算）",
     "arr_yoy": "+400%（从~$10亿到~$50-80亿）",
     "mau": "月活 >10亿",
+    "mau_data_date": "2026-Q2",
     "mau_mom": "+3%（增量放缓）",
     "mau_qoq": "+11%（Q1 ~9亿→Q2 >10亿）",
     "note": "Gemini 未单独披露 ARR；Google Cloud Q2 2026 营收 $140亿（含 AI 基础设施），Google AI 营收估算 $50-80亿/年",
     "google_cloud_q2": "$140亿（含AI基础设施）",
+    "google_cloud_q2_data_date": "2026-Q2",
     "arr_estimate": "~$50-80亿（Google AI 估算）",
     "valuation_note": "母公司 Alphabet 市值 ~$2.8万亿",
     "challenge": "人才流失严重（Jeff Dean 离职、DeepMind 创始人卸任），Gemini 3.5 Pro 被评测落后于 Claude/GPT",
@@ -98,8 +109,11 @@ window.AIDATA['business'] = {
     "revenue_2026_target": "$20亿（4倍跳跃）",
     "revenue_yoy": "+471%（$3.5亿→$20亿）",
     "operating_loss_2025": "$64亿",
+    "operating_loss_2025_data_date": "2025",
     "monthly_infra_spend": "~$10亿/月",
+    "monthly_infra_spend_data_date": "2026-08",
     "valuation": "~$550亿",
+    "valuation_data_date": "2026-08",
     "note": "增速惊人但亏损巨大，2025年运营亏损 $64亿，基础设施月支出约 $10亿",
     "arr_timeline": [
       { "date": "2025-06", "arr": 1, "note": "估算" },
@@ -179,11 +193,12 @@ window.AIDATA['compute'] = {
     ]
   },
   "cloud_providers": [
-    { "company": "CoreWeave", "q2_revenue": "$25.8亿（+112% YoY）", "backlog": "$1,040亿", "valuation": "~$463亿", "note": "推理平台 ARR 数月内从 $100万→$1亿+" },
-    { "company": "Nscale", "q2_revenue": ">$1亿", "backlog": "$510亿", "valuation": "目标$250亿", "note": "拟9月 IPO" }
+    { "company": "CoreWeave", "q2_revenue": "$25.8亿（+112% YoY）", "backlog": "$1,040亿", "valuation": "~$463亿", "data_date": "2026-Q2", "note": "推理平台 ARR 数月内从 $100万→$1亿+" },
+    { "company": "Nscale", "q2_revenue": ">$1亿", "backlog": "$510亿", "valuation": "目标$250亿", "data_date": "2026-Q2", "note": "拟9月 IPO" }
   ],
   "compute_futures": {
     "status": "CME 算力期货 10月5日 NYMEX 挂牌（待 CFTC 批准），合约以 Silicon Data 基准指数现金结算",
+    "status_data_date": "2026-08-30",
     "contract": "H100 GPU 小时租赁费（730小时/月基准）+ B200 GPU 小时租赁费",
     "significance": "算力从'长协定价'走向'全球金融定价'，类似1983年原油期货",
     "h100_benchmark": "$2.68/GPU小时（Silicon Data 基准）",
@@ -191,11 +206,17 @@ window.AIDATA['compute'] = {
   },
   "infrastructure": {
     "data_center_blocked": "美国 75 个 AIDC 项目受阻/延期，总价值 ~$1,300亿（Q1 2026）",
+    "data_center_blocked_data_date": "2026-Q1",
     "power_density": "AIDC 单机柜功率 20kW-100kW+",
+    "power_density_data_date": "2026-08",
     "global_investment": "~$16万亿 涌入 AIDC",
+    "global_investment_data_date": "2026-08-26",
     "hbm_trend": "HBM 涨价，存储超级周期",
+    "hbm_trend_data_date": "2026-08",
     "chip_per_rack": "单 AI 服务器机架芯片数突破 4,500 颗",
-    "hyperscaler_capex_2026": "全球 AI 资本开支预计 $7,650亿，首次超油气 ($6,810亿)"
+    "chip_per_rack_data_date": "2026-08",
+    "hyperscaler_capex_2026": "全球 AI 资本开支预计 $7,650亿，首次超油气 ($6,810亿)",
+    "hyperscaler_capex_2026_data_date": "2026-08-26"
   }
 };
 
@@ -212,6 +233,7 @@ window.AIDATA['cost'] = {
     "trend": "AI 经济进入性价比时代，企业对 Token 消耗重回理性",
     "implication": "Token 支出 = AI 使用量 × 价格，直接绑定 GPU/DRAM/数据中心需求",
     "current_index": 88,
+    "current_index_data_date": "2026-08-31",
     "mom": "-7%（6月95→8月88）",
     "qoq": "-7%（Q2均值~99→8月88）",
     "yoy": "-12%（2025.08 ~100→2026.08 88）",
@@ -234,6 +256,7 @@ window.AIDATA['cost'] = {
     "labels": ["25-03", "25-06", "25-09", "25-12", "26-02", "26-04", "26-06", "26-08"],
     "data": [0.3, 0.6, 1.2, 2.5, 4.0, 6.5, 9.0, 12.0],
     "annual_runrate": "~$10亿（2026.3 突破）",
+    "latest_data_date": "2026-08",
     "latest_mom": "+33%（6月$9→8月$12亿/月）",
     "latest_qoq": "+85%（Q2均值~$6.5→8月$12亿/月）",
     "latest_yoy": "+3900%（2025.03 $0.3→2026.08 $12亿/月）",
@@ -244,23 +267,26 @@ window.AIDATA['cost'] = {
     "inference_side": {
       "desc": "推理侧总支出 = Token 消耗量 × Token 均价",
       "openrouter_annual": "~$10亿（2026.3 突破）",
+      "openrouter_annual_data_date": "2026-03",
       "judgment": "量增速度远超价降速度，总支出仍快速扩张。Agent 使单任务 Token 消耗提升数量级。",
       "trend_note": "2026年以来推理侧月支出从 $4亿增至 $12亿，4个月增长3倍，主要受 Agent 工作负载驱动"
     },
     "infrastructure_side": {
       "desc": "基建侧总投入 = GPU 采购/租赁量 × GPU 单价",
       "off_balance_sheet": ">$3.1万亿（五大云厂商+英伟达+博通）",
+      "off_balance_sheet_data_date": "2026-08-26",
       "google_commit": "$8,900亿（第一）",
+      "google_commit_data_date": "2026-08-26",
       "hyperscaler_total": ">$2.7万亿",
       "long_term_estimate": "3-4万亿美元",
       "vs_annual_capex": "约为年资本开支的 5 倍",
       "trend_note": "Google 承诺 $8,900亿居首；行业表外承诺从年初 $2万亿增至 $3.1万亿，6个月增长55%，资本投入仍在加速"
     },
     "china_capex": [
-      { "company": "腾讯", "q2_2026": "528亿元", "yoy": "+176%", "annualized": ">2,000亿元", "note": "H1合计847亿，下半年还将抬升；年初预期约1,200亿，实际远超预期" },
-      { "company": "阿里巴巴", "q2_2026": "269亿元", "yoy": "—", "annualized": "~1,000亿元", "note": "配售800亿港元全部投入AI；资本开支占营收比例升至约25%" },
-      { "company": "百度", "q2_2026": "114亿元", "yoy": "+200%", "annualized": "~450亿元", "note": "资本开支占营收36%，同比翻3倍，增速最快" },
-      { "company": "字节跳动", "q2_2026": "年度规划2,000亿", "yoy": "—", "annualized": "~2,000亿元", "note": "上调后较原计划+25%；海外GPU采购占比超60%" }
+      { "company": "腾讯", "q2_2026": "528亿元", "data_date": "2026-Q2", "yoy": "+176%", "annualized": ">2,000亿元", "note": "H1合计847亿，下半年还将抬升；年初预期约1,200亿，实际远超预期" },
+      { "company": "阿里巴巴", "q2_2026": "269亿元", "data_date": "2026-Q2", "yoy": "—", "annualized": "~1,000亿元", "note": "配售800亿港元全部投入AI；资本开支占营收比例升至约25%" },
+      { "company": "百度", "q2_2026": "114亿元", "data_date": "2026-Q2", "yoy": "+200%", "annualized": "~450亿元", "note": "资本开支占营收36%，同比翻3倍，增速最快" },
+      { "company": "字节跳动", "q2_2026": "年度规划2,000亿", "data_date": "2026", "yoy": "—", "annualized": "~2,000亿元", "note": "上调后较原计划+25%；海外GPU采购占比超60%" }
     ],
     "china_capex_total_q2": "腾讯+阿里+百度 Q2合计 1,318亿元",
     "china_capex_trend": {
@@ -285,36 +311,36 @@ window.AIDATA['macro'] = {
     "note": "宏观数据多为季度/事件性数据，以月频汇总呈现。"
   },
   "industry_dimensions": [
-    { "dim": "需求景气度", "status": "历史峰值", "detail": "全球 Token 周调用量 93.3万亿，2年增长9000倍，Agent Token 消耗达人类 5.2 倍（占比71%）" },
-    { "dim": "供给紧张度", "status": "全面紧张", "detail": "H100 基准价升至$2.68/h（+58%）、B200基准$5.66/h；美国75个 AIDC 项目受阻；HBM 存储超级周期" },
-    { "dim": "算力成本趋势", "status": "不降反升", "detail": "GPU 租赁价持续反弹、电力成最大瓶颈、算力期货10月挂牌金融化启动" },
-    { "dim": "行业营收增速", "status": "加速分化", "detail": "头部公司 ARR 合计突破 $1,000亿，Anthropic Q3 ARR ~$540亿追击 OpenAI $540亿；企业 API 跑通盈利" },
-    { "dim": "资本投入力度", "status": "史无前例", "detail": "$3.1万亿表外承诺、$16万亿涌入 AIDC、AI 资本开支$7,500亿首次超油气；AI企业债逼近$5,000亿" },
-    { "dim": "商业盈利能力", "status": "首现曙光", "detail": "Anthropic 首次单季盈利 $5.59亿，行业从'烧钱换增长'向'ROI 决胜'转折" }
+    { "dim": "需求景气度", "status": "历史峰值", "data_date": "2026-08-23", "detail": "全球 Token 周调用量 93.3万亿，2年增长9000倍，Agent Token 消耗达人类 5.2 倍（占比71%）" },
+    { "dim": "供给紧张度", "status": "全面紧张", "data_date": "2026-08-30", "detail": "H100 基准价升至$2.68/h（+58%）、B200基准$5.66/h；美国75个 AIDC 项目受阻；HBM 存储超级周期" },
+    { "dim": "算力成本趋势", "status": "不降反升", "data_date": "2026-08-30", "detail": "GPU 租赁价持续反弹、电力成最大瓶颈、算力期货10月挂牌金融化启动" },
+    { "dim": "行业营收增速", "status": "加速分化", "data_date": "2026-08-20", "detail": "头部公司 ARR 合计突破 $1,000亿，Anthropic Q3 ARR ~$540亿追击 OpenAI $540亿；企业 API 跑通盈利" },
+    { "dim": "资本投入力度", "status": "史无前例", "data_date": "2026-08-26", "detail": "$3.1万亿表外承诺、$16万亿涌入 AIDC、AI 资本开支$7,500亿首次超油气；AI企业债逼近$5,000亿" },
+    { "dim": "商业盈利能力", "status": "首现曙光", "data_date": "2026-Q2", "detail": "Anthropic 首次单季盈利 $5.59亿，行业从'烧钱换增长'向'ROI 决胜'转折" }
   ],
   "bottlenecks": [
-    { "type": "电力", "status": "AIDC 功率密度 20-100kW/rack，75个项目 $1,300亿受阻", "impact": "算力供给增长受限" },
-    { "type": "GPU 供给", "status": "H100 基准价$2.68/h（+58%），B200 基准$5.66/h", "impact": "推理成本上升" },
-    { "type": "英伟达芯片产能", "status": "Blackwell/B200 产量受限于 CoWoS 封装产能；台积电 70%+ CoWoS 产能供给英伟达，仍供不应求", "impact": "高端 AI 芯片交付周期拉长，B200 现货价格 2 个月涨 48%" },
-    { "type": "台积电 CoWoS 封装", "status": "CoWoS 良率达 99%（5.5 倍光罩尺寸），但产能严重不足；HBM 订货排期至 2027 年；台积电开始将部分 CoWoS 工序外包给 OSAT 厂商", "impact": "先进封装成为 AI 芯片产能核心瓶颈，限制全行业 GPU 出货量" },
-    { "type": "HBM 存储", "status": "涨价中，存储超级周期，订货排期至 2027", "impact": "GPU 产能受限" },
-    { "type": "人才", "status": "核心人才流动频繁（Jeff Dean 离职、OpenAI 高管离职潮）", "impact": "组织不稳定性" }
+    { "type": "电力", "status": "AIDC 功率密度 20-100kW/rack，75个项目 $1,300亿受阻", "data_date": "2026-Q1", "impact": "算力供给增长受限" },
+    { "type": "GPU 供给", "status": "H100 基准价$2.68/h（+58%），B200 基准$5.66/h", "data_date": "2026-08-30", "impact": "推理成本上升" },
+    { "type": "英伟达芯片产能", "status": "Blackwell/B200 产量受限于 CoWoS 封装产能；台积电 70%+ CoWoS 产能供给英伟达，仍供不应求", "data_date": "2026-08", "impact": "高端 AI 芯片交付周期拉长，B200 现货价格 2 个月涨 48%" },
+    { "type": "台积电 CoWoS 封装", "status": "CoWoS 良率达 99%（5.5 倍光罩尺寸），但产能严重不足；HBM 订货排期至 2027 年；台积电开始将部分 CoWoS 工序外包给 OSAT 厂商", "data_date": "2026-08", "impact": "先进封装成为 AI 芯片产能核心瓶颈，限制全行业 GPU 出货量" },
+    { "type": "HBM 存储", "status": "涨价中，存储超级周期，订货排期至 2027", "data_date": "2026-08", "impact": "GPU 产能受限" },
+    { "type": "人才", "status": "核心人才流动频繁（Jeff Dean 离职、OpenAI 高管离职潮）", "data_date": "2026-08", "impact": "组织不稳定性" }
   ],
   "trend_signals": [
-    { "trend": "Agent 经济崛起", "signal": "Agent Token 占比快速攀升，成为增长核心引擎", "support": "OpenRouter" },
-    { "trend": "AI 自我消费 AI", "signal": "Agent Token 消耗达人类 5.2 倍，占比从 2%冲到 71%", "support": "OpenRouter" },
-    { "trend": "算力金融化", "signal": "CME 10月推出算力期货（H100$2.68+B200$5.66）", "support": "CME SER-9785" },
-    { "trend": "头部模型涨价", "signal": "DeepSeek V4 API 涨价最高 1100%，引入峰谷定价", "support": "DeepSeek 公告" },
-    { "trend": "Token 经济性价比化", "signal": "Silicon Data 支出指数停滞/回落，企业回归理性消耗", "support": "Silicon Data" },
-    { "trend": "行业首次实现盈利", "signal": "Anthropic Q2 调整后盈利 $5.59亿", "support": "公司披露" },
-    { "trend": "算力供给紧张持续", "signal": "CoreWeave $1,040亿在手订单", "support": "财报" },
-    { "trend": "AI Capex 加速", "signal": "$16万亿涌入 AIDC，表外承诺 $3.1万亿，AI企业债逼近$5,000亿", "support": "高盛/行业统计" },
-    { "trend": "AI 资本开支超油气", "signal": "2026年 AI $7,650亿 > 油气 $6,810亿", "support": "摩根士丹利" },
-    { "trend": "先进封装成核心瓶颈", "signal": "台积电 CoWoS 产能 70%+ 供英伟达，良率 99% 但供不应求，HBM 排到 2027", "support": "中信建投研报 / 台积电财报" },
-    { "trend": "先进封装市场快速扩张", "signal": "2025 年 $550 亿，预计 2031 年超 $1,200 亿，台积电开始外包 OSAT", "support": "中信建投研报" },
-    { "trend": "AI 路由层并购", "signal": "Stripe $70亿+收购 OpenRouter，AI基建最大并购", "support": "彭博/Axios" },
-    { "trend": "GPT-6/Astra 临近", "signal": "OpenAI Astra 内测中，预计9月初发布，定位AGI门槛", "support": "The Information/时代杂志" },
-    { "trend": "行业进入 ROI 决胜期", "signal": "盈利与亏损公司并存，商业模型效率成为分水岭", "support": "中金研报" }
+    { "trend": "Agent 经济崛起", "signal": "Agent Token 占比快速攀升，成为增长核心引擎", "data_date": "2026-08-23", "support": "OpenRouter" },
+    { "trend": "AI 自我消费 AI", "signal": "Agent Token 消耗达人类 5.2 倍，占比从 2%冲到 71%", "data_date": "2026-08-10", "support": "OpenRouter" },
+    { "trend": "算力金融化", "signal": "CME 10月推出算力期货（H100$2.68+B200$5.66）", "data_date": "2026-08-30", "support": "CME SER-9785" },
+    { "trend": "头部模型涨价", "signal": "DeepSeek V4 API 涨价最高 1100%，引入峰谷定价", "data_date": "2026-08-17", "support": "DeepSeek 公告" },
+    { "trend": "Token 经济性价比化", "signal": "Silicon Data 支出指数停滞/回落，企业回归理性消耗", "data_date": "2026-08-31", "support": "Silicon Data" },
+    { "trend": "行业首次实现盈利", "signal": "Anthropic Q2 调整后盈利 $5.59亿", "data_date": "2026-Q2", "support": "公司披露" },
+    { "trend": "算力供给紧张持续", "signal": "CoreWeave $1,040亿在手订单", "data_date": "2026-Q2", "support": "财报" },
+    { "trend": "AI Capex 加速", "signal": "$16万亿涌入 AIDC，表外承诺 $3.1万亿，AI企业债逼近$5,000亿", "data_date": "2026-08-26", "support": "高盛/行业统计" },
+    { "trend": "AI 资本开支超油气", "signal": "2026年 AI $7,650亿 > 油气 $6,810亿", "data_date": "2026-08-26", "support": "摩根士丹利" },
+    { "trend": "先进封装成核心瓶颈", "signal": "台积电 CoWoS 产能 70%+ 供英伟达，良率 99% 但供不应求，HBM 排到 2027", "data_date": "2026-08", "support": "中信建投研报 / 台积电财报" },
+    { "trend": "先进封装市场快速扩张", "signal": "2025 年 $550 亿，预计 2031 年超 $1,200 亿，台积电开始外包 OSAT", "data_date": "2026-08", "support": "中信建投研报" },
+    { "trend": "AI 路由层并购", "signal": "Stripe $70亿+收购 OpenRouter，AI基建最大并购", "data_date": "2026-08", "support": "彭博/Axios" },
+    { "trend": "GPT-6/Astra 临近", "signal": "OpenAI Astra 内测中，预计9月初发布，定位AGI门槛", "data_date": "2026-08", "support": "The Information/时代杂志" },
+    { "trend": "行业进入 ROI 决胜期", "signal": "盈利与亏损公司并存，商业模型效率成为分水岭", "data_date": "2026-Q2", "support": "中金研报" }
   ],
   "conclusions": [
     "AI 行业需求仍处爆发式增长，景气度处于历史峰值：Token 调用量指数级攀升，Agent Token 消耗已达人类 5.2 倍，AI 自我消费 AI 成为新常态",
@@ -337,20 +363,27 @@ window.AIDATA['output'] = {
   },
   "key_metrics": {
     "openrouter_weekly_now": ">90万亿",
+    "openrouter_weekly_now_data_date": "2026-08-23",
     "openrouter_weekly_now_mom": "+37%（7月75→8月93.3万亿）",
     "openrouter_weekly_now_qoq": "+86%（Q2均值~50→Q3首月93.3）",
     "openrouter_weekly_now_yoy": "+522%（2025.08 ~15→2026.08 93.3万亿）",
     "openrouter_weekly_2024": "~100亿",
+    "openrouter_weekly_2024_data_date": "2024-01",
     "growth_times": "9000倍",
+    "growth_times_data_date": "2024-01~2026-08",
     "annual_token_2026q1": ">1千万亿",
+    "annual_token_2026q1_data_date": "2026-Q1",
     "annual_inference_spend": "~$10亿",
+    "annual_inference_spend_data_date": "2026-08",
     "annual_spend_mom": "+33%（月支出$9→$12亿）",
     "annual_spend_qoq": "+100%（Q1 ~$6→Q2 ~$12亿/月）",
     "annual_spend_yoy": "+3900%（2025.03 $0.3→2026.08 $12亿/月）",
     "agent_vs_human": "Agent Token 消耗达人类 5.2 倍（8月10日）",
+    "agent_vs_human_data_date": "2026-08-10",
     "agent_share": "71%（一年前仅2%）",
     "human_share": "15%（一年前57%）",
     "models_count": "90+",
+    "models_count_data_date": "2026-08",
     "models_count_yoy": "+50%（2025.08 ~60个→2026.08 90+）"
   },
   "growth_curve": {
@@ -401,14 +434,14 @@ window.AIDATA['overview'] = {
     "framework_desc": "需求与采用 → 产出与消耗 → 成本与定价 → 算力供给 → 商业表现 → 宏观格局"
   },
   "key_metrics": [
-    { "label": "全球周 Token 调用量", "value": "93.3万亿", "sub": "环比 +23.9%（截至8/23）", "mom": "+37%", "qoq": "+86%", "yoy": "+522%", "delta": "up", "page": "token" },
-    { "label": "Anthropic ARR", "value": "$650亿+", "sub": "首次单季盈利 $5.59亿", "mom": "+18%", "qoq": "+242%", "yoy": "+1500%", "delta": "up", "page": "business" },
-    { "label": "OpenAI ARR", "value": "~$540亿", "sub": "Q3 增35%，CFO透露", "mom": "+35%", "qoq": "+116%", "yoy": "+350%", "delta": "up", "page": "business" },
-    { "label": "H100 租赁价（美国）", "value": "$2.68/h", "sub": "Silicon Data 基准价", "mom": "+14%", "qoq": "+14%", "yoy": "+28%", "delta": "up", "page": "compute" },
-    { "label": "CoreWeave 在手订单", "value": "$1,040亿", "sub": "Q2 营收 +112%", "mom": null, "qoq": null, "yoy": "+112%", "delta": "up", "page": "compute" },
-    { "label": "算力基建表外承诺", "value": "$3.1万亿", "sub": "未来 3-5 年支出锁定", "mom": null, "qoq": "+15%", "yoy": "+55%", "delta": "up", "page": "cost" },
-    { "label": "全球 AI 资本开支", "value": "$7,650亿", "sub": "2026 首次超油气", "mom": null, "qoq": null, "yoy": "+50%", "delta": "up", "page": "macro" },
-    { "label": "CME 算力期货", "value": "10月挂牌", "sub": "算力金融化元年", "mom": null, "qoq": null, "yoy": "元年", "delta": "up", "page": "macro" }
+    { "label": "全球周 Token 调用量", "value": "93.3万亿", "sub": "环比 +23.9%（截至8/23）", "data_date": "2026-08-23", "mom": "+37%", "qoq": "+86%", "yoy": "+522%", "delta": "up", "page": "token" },
+    { "label": "Anthropic ARR", "value": "$650亿+", "sub": "首次单季盈利 $5.59亿", "data_date": "2026-07-31", "mom": "+18%", "qoq": "+242%", "yoy": "+1500%", "delta": "up", "page": "business" },
+    { "label": "OpenAI ARR", "value": "~$540亿", "sub": "Q3 增35%，CFO透露", "data_date": "2026-08-20", "mom": "+35%", "qoq": "+116%", "yoy": "+350%", "delta": "up", "page": "business" },
+    { "label": "H100 租赁价（美国）", "value": "$2.68/h", "sub": "Silicon Data 基准价", "data_date": "2026-08-30", "mom": "+14%", "qoq": "+14%", "yoy": "+28%", "delta": "up", "page": "compute" },
+    { "label": "CoreWeave 在手订单", "value": "$1,040亿", "sub": "Q2 营收 +112%", "data_date": "2026-08-12", "mom": null, "qoq": null, "yoy": "+112%", "delta": "up", "page": "compute" },
+    { "label": "算力基建表外承诺", "value": "$3.1万亿", "sub": "未来 3-5 年支出锁定", "data_date": "2026-08-26", "mom": null, "qoq": "+15%", "yoy": "+55%", "delta": "up", "page": "cost" },
+    { "label": "全球 AI 资本开支", "value": "$7,650亿", "sub": "2026 首次超油气", "data_date": "2026-08-26", "mom": null, "qoq": null, "yoy": "+50%", "delta": "up", "page": "macro" },
+    { "label": "CME 算力期货", "value": "10月挂牌", "sub": "算力金融化元年", "data_date": "2026-08-30", "mom": null, "qoq": null, "yoy": "元年", "delta": "up", "page": "macro" }
   ],
   "conclusions": [
     { "title": "AI 行业需求持续爆发，景气度处于历史峰值", "desc": "全球 Token 周调用量 2 年增长 9000 倍，Agent Token 消耗已达人类 5.2 倍，行业需求侧未见放缓迹象。" },
@@ -470,14 +503,15 @@ window.AIDATA['token'] = {
     "us_mom": "-8%（7月10.5→8月9.66万亿）",
     "us_qoq": "-23%（Q2均值~12.6→Q3首月9.66）",
     "us_yoy": "+21%（2025.08 ~8万亿→2026.08 9.66万亿）",
-    "china_lead_weeks": 17
+    "china_lead_weeks": 17,
+    "data_date": "2026-08-23"
   },
   "model_ranking": [
-    { "rank": 1, "model": "GLM-5.3-Flash", "vendor": "智谱", "country": "中国", "note": "匿名单日登顶，占平台19%用量" },
-    { "rank": 2, "model": "DeepSeek-V4-Flash", "vendor": "DeepSeek", "country": "中国", "note": "连续三周第一后让位" },
-    { "rank": 3, "model": "MiMo-V2.5", "vendor": "小米", "country": "中国", "note": "周调用 10.5万亿" },
-    { "rank": 4, "model": "Hy3", "vendor": "腾讯", "country": "中国" },
-    { "rank": 5, "model": "DeepSeek-V4-Pro", "vendor": "DeepSeek", "country": "中国" }
+    { "rank": 1, "model": "GLM-5.3-Flash", "vendor": "智谱", "country": "中国", "note": "匿名单日登顶，占平台19%用量", "data_date": "2026-08-24" },
+    { "rank": 2, "model": "DeepSeek-V4-Flash", "vendor": "DeepSeek", "country": "中国", "note": "连续三周第一后让位", "data_date": "2026-08-17" },
+    { "rank": 3, "model": "MiMo-V2.5", "vendor": "小米", "country": "中国", "note": "周调用 10.5万亿", "data_date": "2026-08-18" },
+    { "rank": 4, "model": "Hy3", "vendor": "腾讯", "country": "中国", "data_date": "2026-08-17" },
+    { "rank": 5, "model": "DeepSeek-V4-Pro", "vendor": "DeepSeek", "country": "中国", "data_date": "2026-08-17" }
   ],
   "agent_trend": {
     "desc": "自2026年2月起，智能体(Agent)产生的 Token 占比快速攀升，成为增长核心引擎。Agent Token 消耗量已达人类的 5.2 倍，占平台总量的 71%。",

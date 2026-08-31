@@ -81,6 +81,9 @@
       html += trendBadge('YoY', c.yoy);
       html += '</div>';
     }
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
+    }
     html += '</div>';
     return html;
   }
@@ -88,12 +91,12 @@
   // 关键产出指标
   var k = D.key_metrics;
   var mCards = [
-    { label: '当前周产出', value: k.openrouter_weekly_now, sub: 'OpenRouter 平台', mom: k.openrouter_weekly_now_mom, qoq: k.openrouter_weekly_now_qoq, yoy: k.openrouter_weekly_now_yoy },
-    { label: '2024 年周产出', value: k.openrouter_weekly_2024, sub: '基线', mom: null, qoq: null, yoy: null },
-    { label: '增长倍数', value: k.growth_times, sub: '2 年', mom: null, qoq: null, yoy: null },
-    { label: '2026Q1 年化产出', value: k.annual_token_2026q1, sub: 'Token/年', mom: null, qoq: null, yoy: null },
-    { label: '年化推理支出', value: k.annual_inference_spend, sub: 'OpenRouter', mom: k.annual_spend_mom, qoq: k.annual_spend_qoq, yoy: k.annual_spend_yoy },
-    { label: '模型数量', value: k.models_count, sub: '平台在架', mom: null, qoq: null, yoy: k.models_count_yoy }
+    { label: '当前周产出', value: k.openrouter_weekly_now, sub: 'OpenRouter 平台', mom: k.openrouter_weekly_now_mom, qoq: k.openrouter_weekly_now_qoq, yoy: k.openrouter_weekly_now_yoy, data_date: k.openrouter_weekly_now_data_date },
+    { label: '2024 年周产出', value: k.openrouter_weekly_2024, sub: '基线', mom: null, qoq: null, yoy: null, data_date: k.openrouter_weekly_2024_data_date },
+    { label: '增长倍数', value: k.growth_times, sub: '2 年', mom: null, qoq: null, yoy: null, data_date: k.growth_times_data_date },
+    { label: '2026Q1 年化产出', value: k.annual_token_2026q1, sub: 'Token/年', mom: null, qoq: null, yoy: null, data_date: k.annual_token_2026q1_data_date },
+    { label: '年化推理支出', value: k.annual_inference_spend, sub: 'OpenRouter', mom: k.annual_spend_mom, qoq: k.annual_spend_qoq, yoy: k.annual_spend_yoy, data_date: k.annual_inference_spend_data_date },
+    { label: '模型数量', value: k.models_count, sub: '平台在架', mom: null, qoq: null, yoy: k.models_count_yoy, data_date: k.models_count_data_date }
   ];
   var mg = document.getElementById('metricCards');
   mCards.forEach(function (c) {
@@ -119,7 +122,8 @@
     eg.innerHTML += '<div class="card card-hover"><div class="card-label">' + c.label + '</div>' +
       '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>' +
       '<div style="margin-top:0.6rem;font-size:0.78rem;color:var(--muted);line-height:1.6;">代表模型：' + c.models.join(' / ') + '</div>' +
-      '<div style="margin-top:0.3rem;font-size:0.78rem;color:var(--muted);line-height:1.6;">开源策略：' + c.os + '</div></div>';
+      '<div style="margin-top:0.3rem;font-size:0.78rem;color:var(--muted);line-height:1.6;">开源策略：' + c.os + '</div>' +
+      '<div class="card-date">2026-08-23</div></div>';
   });
 
   // 开源占比

@@ -6,14 +6,14 @@
     "framework_desc": "需求与采用 → 产出与消耗 → 成本与定价 → 算力供给 → 商业表现 → 宏观格局"
   },
   "key_metrics": [
-    { "label": "全球周 Token 调用量", "value": "93.3万亿", "sub": "环比 +23.9%（截至8/23）", "mom": "+37%", "qoq": "+86%", "yoy": "+522%", "delta": "up", "page": "token" },
-    { "label": "Anthropic ARR", "value": "$650亿+", "sub": "首次单季盈利 $5.59亿", "mom": "+18%", "qoq": "+242%", "yoy": "+1500%", "delta": "up", "page": "business" },
-    { "label": "OpenAI ARR", "value": "~$540亿", "sub": "Q3 增35%，CFO透露", "mom": "+35%", "qoq": "+116%", "yoy": "+350%", "delta": "up", "page": "business" },
-    { "label": "H100 租赁价（美国）", "value": "$2.68/h", "sub": "Silicon Data 基准价", "mom": "+14%", "qoq": "+14%", "yoy": "+28%", "delta": "up", "page": "compute" },
-    { "label": "CoreWeave 在手订单", "value": "$1,040亿", "sub": "Q2 营收 +112%", "mom": null, "qoq": null, "yoy": "+112%", "delta": "up", "page": "compute" },
-    { "label": "算力基建表外承诺", "value": "$3.1万亿", "sub": "未来 3-5 年支出锁定", "mom": null, "qoq": "+15%", "yoy": "+55%", "delta": "up", "page": "cost" },
-    { "label": "全球 AI 资本开支", "value": "$7,650亿", "sub": "2026 首次超油气", "mom": null, "qoq": null, "yoy": "+50%", "delta": "up", "page": "macro" },
-    { "label": "CME 算力期货", "value": "10月挂牌", "sub": "算力金融化元年", "mom": null, "qoq": null, "yoy": "元年", "delta": "up", "page": "macro" }
+    { "label": "全球周 Token 调用量", "value": "93.3万亿", "sub": "环比 +23.9%（截至8/23）", "data_date": "2026-08-23", "mom": "+37%", "qoq": "+86%", "yoy": "+522%", "delta": "up", "page": "token" },
+    { "label": "Anthropic ARR", "value": "$650亿+", "sub": "首次单季盈利 $5.59亿", "data_date": "2026-07-31", "mom": "+18%", "qoq": "+242%", "yoy": "+1500%", "delta": "up", "page": "business" },
+    { "label": "OpenAI ARR", "value": "~$540亿", "sub": "Q3 增35%，CFO透露", "data_date": "2026-08-20", "mom": "+35%", "qoq": "+116%", "yoy": "+350%", "delta": "up", "page": "business" },
+    { "label": "H100 租赁价（美国）", "value": "$2.68/h", "sub": "Silicon Data 基准价", "data_date": "2026-08-30", "mom": "+14%", "qoq": "+14%", "yoy": "+28%", "delta": "up", "page": "compute" },
+    { "label": "CoreWeave 在手订单", "value": "$1,040亿", "sub": "Q2 营收 +112%", "data_date": "2026-08-12", "mom": null, "qoq": null, "yoy": "+112%", "delta": "up", "page": "compute" },
+    { "label": "算力基建表外承诺", "value": "$3.1万亿", "sub": "未来 3-5 年支出锁定", "data_date": "2026-08-26", "mom": null, "qoq": "+15%", "yoy": "+55%", "delta": "up", "page": "cost" },
+    { "label": "全球 AI 资本开支", "value": "$7,650亿", "sub": "2026 首次超油气", "data_date": "2026-08-26", "mom": null, "qoq": null, "yoy": "+50%", "delta": "up", "page": "macro" },
+    { "label": "CME 算力期货", "value": "10月挂牌", "sub": "算力金融化元年", "data_date": "2026-08-30", "mom": null, "qoq": null, "yoy": "元年", "delta": "up", "page": "macro" }
   ],
   "conclusions": [
     { "title": "AI 行业需求持续爆发，景气度处于历史峰值", "desc": "全球 Token 周调用量 2 年增长 9000 倍，Agent Token 消耗已达人类 5.2 倍，行业需求侧未见放缓迹象。" },

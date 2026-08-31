@@ -109,8 +109,8 @@
   });
 
   var tiCards = [
-    { label: '当前状态', value: ti.status, sub: ti.meaning, mom: ti.mom, qoq: ti.qoq, yoy: ti.yoy },
-    { label: '趋势判断', value: '性价比时代', sub: ti.trend, mom: null, qoq: null, yoy: null }
+    { label: '当前状态', value: ti.status, sub: ti.meaning, mom: ti.mom, qoq: ti.qoq, yoy: ti.yoy, data_date: ti.current_index_data_date },
+    { label: '趋势判断', value: '性价比时代', sub: ti.trend, mom: null, qoq: null, yoy: null, data_date: ti.current_index_data_date }
   ];
   var tg = document.getElementById('tokenIdxCards');
   tiCards.forEach(function (c) {
@@ -123,6 +123,9 @@
       html += trendBadge('QoQ', c.qoq);
       html += trendBadge('YoY', c.yoy);
       html += '</div>';
+    }
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
     }
     html += '</div>';
     tg.innerHTML += html;
@@ -148,16 +151,21 @@
   // 算力总支出卡片
   var ts = D.total_spend;
   var sCards = [
-    { label: '推理侧年化支出', value: ts.inference_side.openrouter_annual, sub: ts.inference_side.desc },
-    { label: '基建侧表外承诺', value: ts.infrastructure_side.off_balance_sheet, sub: '五大云厂商+英伟达+博通' },
-    { label: 'Google 承诺', value: ts.infrastructure_side.google_commit, sub: '第一' },
-    { label: '云厂商承诺合计', value: ts.infrastructure_side.hyperscaler_total, sub: '' },
-    { label: '长期估算', value: ts.infrastructure_side.long_term_estimate, sub: '3-4万亿美元' }
+    { label: '推理侧年化支出', value: ts.inference_side.openrouter_annual, sub: ts.inference_side.desc, data_date: ts.inference_side.openrouter_annual_data_date },
+    { label: '基建侧表外承诺', value: ts.infrastructure_side.off_balance_sheet, sub: '五大云厂商+英伟达+博通', data_date: ts.infrastructure_side.off_balance_sheet_data_date },
+    { label: 'Google 承诺', value: ts.infrastructure_side.google_commit, sub: '第一', data_date: ts.infrastructure_side.google_commit_data_date },
+    { label: '云厂商承诺合计', value: ts.infrastructure_side.hyperscaler_total, sub: '', data_date: ts.infrastructure_side.off_balance_sheet_data_date },
+    { label: '长期估算', value: ts.infrastructure_side.long_term_estimate, sub: '3-4万亿美元', data_date: ts.infrastructure_side.off_balance_sheet_data_date }
   ];
   var sg = document.getElementById('spendCards');
   sCards.forEach(function (c) {
-    sg.innerHTML += '<div class="card"><div class="card-label">' + c.label + '</div>' +
-      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div></div>';
+    var html = '<div class="card"><div class="card-label">' + c.label + '</div>' +
+      '<div class="card-value">' + c.value + '</div><div class="card-sub">' + c.sub + '</div>';
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
+    }
+    html += '</div>';
+    sg.innerHTML += html;
   });
   document.getElementById('spendTrendNote').innerHTML =
     '<strong>推理侧趋势：</strong>' + ts.inference_side.trend_note + '<br>' +

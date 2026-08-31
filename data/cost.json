@@ -11,6 +11,7 @@
     "trend": "AI 经济进入性价比时代，企业对 Token 消耗重回理性",
     "implication": "Token 支出 = AI 使用量 × 价格，直接绑定 GPU/DRAM/数据中心需求",
     "current_index": 88,
+    "current_index_data_date": "2026-08-31",
     "mom": "-7%（6月95→8月88）",
     "qoq": "-7%（Q2均值~99→8月88）",
     "yoy": "-12%（2025.08 ~100→2026.08 88）",
@@ -33,6 +34,7 @@
     "labels": ["25-03", "25-06", "25-09", "25-12", "26-02", "26-04", "26-06", "26-08"],
     "data": [0.3, 0.6, 1.2, 2.5, 4.0, 6.5, 9.0, 12.0],
     "annual_runrate": "~$10亿（2026.3 突破）",
+    "latest_data_date": "2026-08",
     "latest_mom": "+33%（6月$9→8月$12亿/月）",
     "latest_qoq": "+85%（Q2均值~$6.5→8月$12亿/月）",
     "latest_yoy": "+3900%（2025.03 $0.3→2026.08 $12亿/月）",
@@ -43,23 +45,26 @@
     "inference_side": {
       "desc": "推理侧总支出 = Token 消耗量 × Token 均价",
       "openrouter_annual": "~$10亿（2026.3 突破）",
+      "openrouter_annual_data_date": "2026-03",
       "judgment": "量增速度远超价降速度，总支出仍快速扩张。Agent 使单任务 Token 消耗提升数量级。",
       "trend_note": "2026年以来推理侧月支出从 $4亿增至 $12亿，4个月增长3倍，主要受 Agent 工作负载驱动"
     },
     "infrastructure_side": {
       "desc": "基建侧总投入 = GPU 采购/租赁量 × GPU 单价",
       "off_balance_sheet": ">$3.1万亿（五大云厂商+英伟达+博通）",
+      "off_balance_sheet_data_date": "2026-08-26",
       "google_commit": "$8,900亿（第一）",
+      "google_commit_data_date": "2026-08-26",
       "hyperscaler_total": ">$2.7万亿",
       "long_term_estimate": "3-4万亿美元",
       "vs_annual_capex": "约为年资本开支的 5 倍",
       "trend_note": "Google 承诺 $8,900亿居首；行业表外承诺从年初 $2万亿增至 $3.1万亿，6个月增长55%，资本投入仍在加速"
     },
     "china_capex": [
-      { "company": "腾讯", "q2_2026": "528亿元", "yoy": "+176%", "annualized": ">2,000亿元", "note": "H1合计847亿，下半年还将抬升；年初预期约1,200亿，实际远超预期" },
-      { "company": "阿里巴巴", "q2_2026": "269亿元", "yoy": "—", "annualized": "~1,000亿元", "note": "配售800亿港元全部投入AI；资本开支占营收比例升至约25%" },
-      { "company": "百度", "q2_2026": "114亿元", "yoy": "+200%", "annualized": "~450亿元", "note": "资本开支占营收36%，同比翻3倍，增速最快" },
-      { "company": "字节跳动", "q2_2026": "年度规划2,000亿", "yoy": "—", "annualized": "~2,000亿元", "note": "上调后较原计划+25%；海外GPU采购占比超60%" }
+      { "company": "腾讯", "q2_2026": "528亿元", "data_date": "2026-Q2", "yoy": "+176%", "annualized": ">2,000亿元", "note": "H1合计847亿，下半年还将抬升；年初预期约1,200亿，实际远超预期" },
+      { "company": "阿里巴巴", "q2_2026": "269亿元", "data_date": "2026-Q2", "yoy": "—", "annualized": "~1,000亿元", "note": "配售800亿港元全部投入AI；资本开支占营收比例升至约25%" },
+      { "company": "百度", "q2_2026": "114亿元", "data_date": "2026-Q2", "yoy": "+200%", "annualized": "~450亿元", "note": "资本开支占营收36%，同比翻3倍，增速最快" },
+      { "company": "字节跳动", "q2_2026": "年度规划2,000亿", "data_date": "2026", "yoy": "—", "annualized": "~2,000亿元", "note": "上调后较原计划+25%；海外GPU采购占比超60%" }
     ],
     "china_capex_total_q2": "腾讯+阿里+百度 Q2合计 1,318亿元",
     "china_capex_trend": {

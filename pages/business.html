@@ -147,6 +147,9 @@
       html += trendBadge('YoY', c.yoy);
       html += '</div>';
     }
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
+    }
     html += '</div>';
     return html;
   }
@@ -162,6 +165,9 @@
       html += trendBadge('YoY', c.yoy);
       html += '</div>';
     }
+    if (c.data_date) {
+      html += '<div class="card-date">' + c.data_date + '</div>';
+    }
     html += '</div>';
     return html;
   }
@@ -169,12 +175,12 @@
   // Anthropic 卡片
   var a = D.anthropic;
   var aCards = [
-    { label: '当前 ARR', value: a.arr_now, sub: a.arr_time, mom: a.arr_mom, qoq: a.arr_qoq, yoy: a.arr_yoy },
-    { label: 'Q2 2026 营收', value: a.q2_2026_revenue, sub: '同比 ~14 倍', mom: null, qoq: a.q2_revenue_qoq, yoy: a.q2_yoy },
-    { label: 'Q2 盈利', value: a.q2_operating_profit, sub: '首次单季盈利', mom: null, qoq: a.q2_profit_qoq, yoy: '首次转正' },
-    { label: '收入结构', value: '企业 API 为主', sub: a.revenue_structure, mom: null, qoq: null, yoy: null },
-    { label: '二级市场估值', value: a.valuation_secondary, sub: '', mom: null, qoq: null, yoy: null },
-    { label: 'IPO 目标', value: a.ipo_target, sub: '', mom: null, qoq: null, yoy: null }
+    { label: '当前 ARR', value: a.arr_now, sub: a.arr_time, mom: a.arr_mom, qoq: a.arr_qoq, yoy: a.arr_yoy, data_date: a.arr_time },
+    { label: 'Q2 2026 营收', value: a.q2_2026_revenue, sub: '同比 ~14 倍', mom: null, qoq: a.q2_revenue_qoq, yoy: a.q2_yoy, data_date: a.q2_2026_revenue_data_date },
+    { label: 'Q2 盈利', value: a.q2_operating_profit, sub: '首次单季盈利', mom: null, qoq: a.q2_profit_qoq, yoy: '首次转正', data_date: a.q2_operating_profit_data_date },
+    { label: '收入结构', value: '企业 API 为主', sub: a.revenue_structure, mom: null, qoq: null, yoy: null, data_date: a.arr_time },
+    { label: '二级市场估值', value: a.valuation_secondary, sub: '', mom: null, qoq: null, yoy: null, data_date: a.valuation_secondary_data_date },
+    { label: 'IPO 目标', value: a.ipo_target, sub: '', mom: null, qoq: null, yoy: null, data_date: a.arr_time }
   ];
   var ag = document.getElementById('anthCards');
   aCards.forEach(function (c) {
@@ -184,12 +190,12 @@
   // OpenAI 卡片
   var o = D.openai;
   var oCards = [
-    { label: '当前 ARR', value: o.arr_now, sub: o.arr_time, mom: o.arr_mom, qoq: o.arr_qoq, yoy: o.arr_yoy },
-    { label: 'Q2 2026 营收', value: o.q2_2026_revenue, sub: o.q2_qoq, mom: null, qoq: o.q2_revenue_yoy, yoy: null },
-    { label: 'Q2 亏损', value: o.q2_operating_loss, sub: 'Q1 亏损 $93亿', mom: null, qoq: o.q2_loss_qoq, yoy: '亏损持续扩大' },
-    { label: '收入结构', value: 'C 端订阅 65%+', sub: o.revenue_structure, mom: null, qoq: null, yoy: null },
-    { label: '烧钱比', value: o.burn_ratio, sub: '', mom: null, qoq: null, yoy: null },
-    { label: '盈利预期', value: o.profit_estimate, sub: '2029-2030', mom: null, qoq: null, yoy: null }
+    { label: '当前 ARR', value: o.arr_now, sub: o.arr_time, mom: o.arr_mom, qoq: o.arr_qoq, yoy: o.arr_yoy, data_date: o.arr_time },
+    { label: 'Q2 2026 营收', value: o.q2_2026_revenue, sub: o.q2_qoq, mom: null, qoq: o.q2_revenue_yoy, yoy: null, data_date: o.q2_2026_revenue_data_date },
+    { label: 'Q2 亏损', value: o.q2_operating_loss, sub: 'Q1 亏损 $93亿', mom: null, qoq: o.q2_loss_qoq, yoy: '亏损持续扩大', data_date: o.q2_operating_loss_data_date },
+    { label: '收入结构', value: 'C 端订阅 65%+', sub: o.revenue_structure, mom: null, qoq: null, yoy: null, data_date: o.arr_time },
+    { label: '烧钱比', value: o.burn_ratio, sub: '', mom: null, qoq: null, yoy: null, data_date: o.arr_time },
+    { label: '盈利预期', value: o.profit_estimate, sub: '2029-2030', mom: null, qoq: null, yoy: null, data_date: o.arr_time }
   ];
   var og = document.getElementById('oaCards');
   oCards.forEach(function (c) {
@@ -199,11 +205,11 @@
   // Gemini 卡片
   var g = D.gemini;
   var gCards = [
-    { label: 'ARR（估算）', value: g.arr_estimate, sub: '未单独披露', mom: g.arr_mom, qoq: g.arr_qoq, yoy: g.arr_yoy },
-    { label: '月活用户', value: g.mau, sub: g.arr_time, mom: g.mau_mom, qoq: g.mau_qoq, yoy: '+67%（从~6亿到>10亿）' },
-    { label: 'Google Cloud Q2', value: g.google_cloud_q2, sub: '含 AI 基础设施', mom: null, qoq: '+17%', yoy: '+36%' },
-    { label: '母公司市值', value: g.valuation_note, sub: 'Alphabet', mom: null, qoq: null, yoy: null },
-    { label: '当前挑战', value: '人才流失', sub: g.challenge, mom: null, qoq: null, yoy: null }
+    { label: 'ARR（估算）', value: g.arr_estimate, sub: '未单独披露', mom: g.arr_mom, qoq: g.arr_qoq, yoy: g.arr_yoy, data_date: g.arr_time },
+    { label: '月活用户', value: g.mau, sub: g.arr_time, mom: g.mau_mom, qoq: g.mau_qoq, yoy: '+67%（从~6亿到>10亿）', data_date: g.mau_data_date },
+    { label: 'Google Cloud Q2', value: g.google_cloud_q2, sub: '含 AI 基础设施', mom: null, qoq: '+17%', yoy: '+36%', data_date: g.google_cloud_q2_data_date },
+    { label: '母公司市值', value: g.valuation_note, sub: 'Alphabet', mom: null, qoq: null, yoy: null, data_date: g.arr_time },
+    { label: '当前挑战', value: '人才流失', sub: g.challenge, mom: null, qoq: null, yoy: null, data_date: g.arr_time }
   ];
   var gg = document.getElementById('geminiCards');
   gCards.forEach(function (c) {
@@ -213,12 +219,12 @@
   // xAI 卡片
   var x = D.grok;
   var xCards = [
-    { label: '当前 ARR', value: x.arr_now, sub: x.arr_time, mom: x.arr_mom, qoq: x.arr_qoq, yoy: x.arr_yoy },
-    { label: '2025 年营收', value: x.revenue_2025, sub: '全年', mom: null, qoq: null, yoy: null },
-    { label: '2026 目标', value: x.revenue_2026_target, sub: '4倍跳跃', mom: null, qoq: null, yoy: x.revenue_yoy },
-    { label: '2025 运营亏损', value: x.operating_loss_2025, sub: '', mom: null, qoq: null, yoy: null },
-    { label: '月基础设施支出', value: x.monthly_infra_spend, sub: '', mom: null, qoq: null, yoy: null },
-    { label: '估值', value: x.valuation, sub: x.note, mom: null, qoq: null, yoy: null }
+    { label: '当前 ARR', value: x.arr_now, sub: x.arr_time, mom: x.arr_mom, qoq: x.arr_qoq, yoy: x.arr_yoy, data_date: x.arr_time },
+    { label: '2025 年营收', value: x.revenue_2025, sub: '全年', mom: null, qoq: null, yoy: null, data_date: '2025' },
+    { label: '2026 目标', value: x.revenue_2026_target, sub: '4倍跳跃', mom: null, qoq: null, yoy: x.revenue_yoy, data_date: x.arr_time },
+    { label: '2025 运营亏损', value: x.operating_loss_2025, sub: '', mom: null, qoq: null, yoy: null, data_date: x.operating_loss_2025_data_date },
+    { label: '月基础设施支出', value: x.monthly_infra_spend, sub: '', mom: null, qoq: null, yoy: null, data_date: x.monthly_infra_spend_data_date },
+    { label: '估值', value: x.valuation, sub: x.note, mom: null, qoq: null, yoy: null, data_date: x.valuation_data_date }
   ];
   var xg = document.getElementById('grokCards');
   xCards.forEach(function (c) {
