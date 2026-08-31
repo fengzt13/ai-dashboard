@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "产出与消耗：Token 产出与模型生态",
-    "updated": "2026-08-26",
+    "updated": "2026-08-31",
     "source": "OpenRouter / a16z 联合报告 / 公开报道",
     "note": "2024年1月~2025年数据为公开报告锚点；2026年数据来自 OpenRouter 周度公开数据。"
   },
@@ -16,7 +16,10 @@
     "annual_inference_spend": "~$10亿",
     "annual_spend_mom": "+33%（月支出$9→$12亿）",
     "annual_spend_qoq": "+100%（Q1 ~$6→Q2 ~$12亿/月）",
-    "annual_spend_yoy": "+1000%（2025.03 $0.3→2026.08 $12亿/月）",
+    "annual_spend_yoy": "+3900%（2025.03 $0.3→2026.08 $12亿/月）",
+    "agent_vs_human": "Agent Token 消耗达人类 5.2 倍（8月10日）",
+    "agent_share": "71%（一年前仅2%）",
+    "human_share": "15%（一年前57%）",
     "models_count": "90+",
     "models_count_yoy": "+50%（2025.08 ~60个→2026.08 90+）"
   },
@@ -37,9 +40,9 @@
   "ecosystem": {
     "china": {
       "weekly": "40.48万亿",
-      "models": ["DeepSeek-V4", "Kimi K3 (2.8万亿参数)", "Qwen3.8-Max (2.4万亿)", "GLM-5.2", "MiMo-V2.5"],
-      "open_source": "旗舰级全量开源（全球最大开源模型 Kimi K3）",
-      "trend": "调用量持续上升（+9.88% WoW）"
+      "models": ["GLM-5.3-Flash (占19%用量)", "DeepSeek-V4", "Kimi K3 (2.8万亿参数)", "MiMo-V2.5", "Hy3"],
+      "open_source": "旗舰级全量开源（GLM-5.3-Flash MIT协议开源，全球最大开源模型 Kimi K3）",
+      "trend": "调用量持续上升（+9.88% WoW），GLM-5.3-Flash 全部用国产芯片推理"
     },
     "us": {
       "weekly": "9.66万亿",
@@ -49,12 +52,13 @@
     }
   },
   "open_source_share": {
-    "desc": "OpenRouter 2025年度报告：开源模型使用量占比约33%，中国市场开源主导",
+    "desc": "OpenRouter 2025年度报告：开源模型使用量占比约33%，中国市场开源主导；2026年8月GLM-5.3-Flash开源后占比进一步上升",
     "milestones": [
       { "date": "2024", "event": "开源模型占比较低，闭源主导" },
       { "date": "2025-06", "event": "DeepSeek V3 发布后开源占比快速上升" },
       { "date": "2025-12", "event": "开源占比约 33%" },
-      { "date": "2026-08", "event": "全球调用量前五全部为中国模型" }
+      { "date": "2026-08-24", "event": "全球调用量前五全部为中国模型" },
+      { "date": "2026-08-26", "event": "GLM-5.3-Flash MIT协议开源，占平台19%用量" }
     ]
   }
 }
