@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>看空观察 · 广州番禺有趣打工仔小冯的 AI 追踪</title>
+  <meta name="description" content="全球 AI 看空观点库：收录国内外知名人士与机构对 AI 行业的明确看空言论，按六大逻辑分类，持续追踪验证状态。">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/data-bundle.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/charts.js"></script>
+  <script src="../js/site.js"></script>
+  <style>
+    /* ===== 看空观察页特有样式 ===== */
+    .bear-hero-stats { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .bear-stat { background: var(--card-bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.55rem 1rem; font-size: 0.85rem; color: var(--muted); }
+    .bear-stat strong { color: var(--accent); font-weight: 700; margin-right: 0.2rem; }
+
+    /* 分类概览卡片 */
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.85rem; }
+    .cat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1rem 1.1rem; cursor: pointer; transition: all 0.2s ease; text-align: left; font: inherit; color: inherit; }
+    .cat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+    .cat-card.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); box-shadow: 0 0 0 1px var(--accent); }
+    .cat-card .cat-key { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
+    .cat-card .cat-name { font-size: 1.05rem; font-weight: 700; margin-top: 0.2rem; color: var(--foreground); }
+    .cat-card .cat-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; margin-top: 0.3rem; }
+    .cat-card .cat-count { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* 筛选栏 */
+    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem; }
+    .filter-group { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+    .filter-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; }
+    .chip { border: 1px solid var(--border); background: var(--card-bg); color: var(--muted); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.8rem; cursor: pointer; transition: all 0.15s ease; }
+    .chip:hover { border-color: var(--accent); color: var(--foreground); }
+    .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+    .search-input { border: 1px solid var(--border); background: var(--card-bg); color: var(--foreground); padding: 0.35rem 0.8rem; border-radius: 9999px; font-size: 0.82rem; width: 200px; outline: none; transition: border-color 0.15s; }
+    .search-input:focus { border-color: var(--accent); }
+    .filter-result-count { font-size: 0.8rem; color: var(--muted); margin-left: auto; }
+
+    /* 观点卡片列表 */
+    .view-list { display: flex; flex-direction: column; gap: 0.85rem; }
+    .view-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.1rem 1.25rem; transition: all 0.2s ease; }
+    .view-card:hover { box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
+    .view-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
+    .view-person { font-size: 1.05rem; font-weight: 700; color: var(--foreground); }
+    .view-identity { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .view-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .view-title { font-size: 0.92rem; font-weight: 600; color: var(--foreground); margin-top: 0.7rem; line-height: 1.5; }
+    .view-detail { font-size: 0.85rem; color: var(--muted); line-height: 1.8; margin-top: 0.4rem; }
+    .view-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.7rem; font-size: 0.75rem; color: var(--muted); }
+    .view-source { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
+
+    /* 状态徽章 */
+    .st-pending { background: rgba(107, 114, 128, 0.12); color: var(--muted); font-weight: 600; }
+    .st-ongoing { background: rgba(217, 119, 6, 0.12); color: #b45309; font-weight: 600; }
+    .st-partial { background: rgba(37, 99, 235, 0.12); color: #2563eb; font-weight: 600; }
+    .st-falsified { background: rgba(22, 163, 74, 0.12); color: #16a34a; font-weight: 600; }
+    .st-note { font-size: 0.76rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.6; }
+    .empty-tip { padding: 2.5rem; text-align: center; color: var(--muted); font-size: 0.9rem; border: 1px dashed var(--border); border-radius: 1rem; }
+  </style>
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="breadcrumb">AI TRACKING · 看空观察</div>
+      <h1>看空观察：全球 AI 看空观点库</h1>
+      <p class="subtitle" id="heroSub"></p>
+      <div class="bear-hero-stats" id="heroStats"></div>
+    </section>
+
+    <!-- 分类概览 -->
+    <section class="section">
+      <div class="section-header"><h2>分类概览</h2><span class="more text-muted">点击分类卡片筛选</span></div>
+      <div class="cat-grid" id="catGrid"></div>
+    </section>
+
+    <!-- 筛选栏 -->
+    <section class="section" style="margin-top:1.8rem;">
+      <div class="section-header"><h2>观点库</h2><span class="more text-muted" id="resultCount"></span></div>
+      <div class="filter-bar">
+        <span class="filter-label">状态</span>
+        <div class="filter-group" id="statusFilter"></div>
+        <span class="filter-label">地区</span>
+        <div class="filter-group" id="regionFilter"></div>
+        <input type="text" class="search-input" id="searchInput" placeholder="搜索人物 / 关键词…">
+      </div>
+      <div class="view-list" id="viewList"></div>
+      <div class="empty-tip" id="emptyTip" style="display:none;">没有符合条件的观点，试试调整筛选条件。</div>
+    </section>
+
+    <!-- 验证状态统计 -->
+    <section class="section">
+      <div class="section-header"><h2>验证状态分布</h2><span class="more text-muted">观点追踪进度</span></div>
+      <div class="chart-card">
+        <div class="chart-desc">各观点验证状态统计：待验证 / 持续中 / 部分验证 / 已证伪。每月随数据更新刷新状态。</div>
+        <div class="chart-box" id="statusChart"></div>
+      </div>
+    </section>
+
+    <!-- 数据源说明 -->
+    <section class="section">
+      <div class="source-note" id="sourceNote"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  var D = window.AIDATA && window.AIDATA.bearish;
+  if (!D) { document.body.innerHTML += '<p style="padding:2rem;color:red;">数据加载失败：bearish 数据缺失</p>'; return; }
+
+  document.getElementById('heroSub').textContent = D.meta.note;
+  document.getElementById('sourceNote').innerHTML = '<strong>数据来源：</strong>' + D.meta.source + ' · ' + D.meta.note;
+
+  // 状态映射
+  var STATUS_NAMES = D.statuses || { pending: '待验证', ongoing: '持续中', partial: '部分验证', falsified: '已证伪' };
+  var STATUS_KEYS = Object.keys(STATUS_NAMES);
+
+  // ===== Hero 概览统计 =====
+  var total = D.views.length;
+  var falsified = D.views.filter(function (v) { return v.status === 'falsified'; }).length;
+  var overseas = D.views.filter(function (v) { return v.region === '海外'; }).length;
+  var domestic = D.views.filter(function (v) { return v.region === '国内'; }).length;
+  document.getElementById('heroStats').innerHTML =
+    '<span class="bear-stat">已收录 <strong>' + total + '</strong> 条观点</span>' +
+    '<span class="bear-stat">已证伪 <strong>' + falsified + '</strong> 条</span>' +
+    '<span class="bear-stat">海外 <strong>' + overseas + '</strong> 条</span>' +
+    '<span class="bear-stat">国内 <strong>' + domestic + '</strong> 条</span>' +
+    '<span class="bear-stat">更新于 <strong>' + (D.meta.updated || '—') + '</strong></span>';
+
+  // ===== 分类概览 =====
+  var catGrid = document.getElementById('catGrid');
+  var catCount = {};
+  D.views.forEach(function (v) {
+    (v.categories || []).forEach(function (c) { catCount[c] = (catCount[c] || 0) + 1; });
+  });
+  D.categories.forEach(function (c) {
+    var card = document.createElement('button');
+    card.className = 'cat-card';
+    card.dataset.key = c.key;
+    card.innerHTML = '<div class="cat-key">' + c.key + '</div>' +
+      '<div class="cat-name">' + c.name + '</div>' +
+      '<div class="cat-desc">' + c.desc + '</div>' +
+      '<div class="cat-count">' + (catCount[c.key] || 0) + ' 条观点</div>';
+    card.addEventListener('click', function () {
+      setCat(c.key);
+    });
+    catGrid.appendChild(card);
+  });
+
+  // ===== 筛选状态 =====
+  var state = { cat: null, status: null, region: null, keyword: '' };
+
+  // 状态筛选 chips
+  var statusFilter = document.getElementById('statusFilter');
+  var allChip = document.createElement('button');
+  allChip.className = 'chip active'; allChip.textContent = '全部';
+  allChip.addEventListener('click', function () { setStatus(null); });
+  statusFilter.appendChild(allChip);
+  STATUS_KEYS.forEach(function (k) {
+    var chip = document.createElement('button');
+    chip.className = 'chip'; chip.dataset.key = k; chip.textContent = STATUS_NAMES[k];
+    chip.addEventListener('click', function () { setStatus(k); });
+    statusFilter.appendChild(chip);
+  });
+
+  // 地区筛选
+  var regionFilter = document.getElementById('regionFilter');
+  var regionAll = document.createElement('button');
+  regionAll.className = 'chip active'; regionAll.textContent = '全部';
+  regionAll.addEventListener('click', function () { setRegion(null); });
+  regionFilter.appendChild(regionAll);
+  ['海外', '国内'].forEach(function (r) {
+    var chip = document.createElement('button');
+    chip.className = 'chip'; chip.dataset.key = r; chip.textContent = r;
+    chip.addEventListener('click', function () { setRegion(r); });
+    regionFilter.appendChild(chip);
+  });
+
+  function setCat(key) {
+    state.cat = (state.cat === key) ? null : key;
+    renderCats();
+    renderViews();
+  }
+  function setStatus(key) {
+    state.status = (state.status === key) ? null : key;
+    renderStatusChips();
+    renderViews();
+  }
+  function setRegion(key) {
+    state.region = (state.region === key) ? null : key;
+    renderRegionChips();
+    renderViews();
+  }
+
+  function renderCats() {
+    var cards = catGrid.querySelectorAll('.cat-card');
+    cards.forEach(function (c) {
+      c.classList.toggle('active', state.cat === c.dataset.key);
+    });
+  }
+  function renderStatusChips() {
+    var chips = statusFilter.querySelectorAll('.chip');
+    chips.forEach(function (c) {
+      c.classList.toggle('active', state.status === c.dataset.key);
+    });
+  }
+  function renderRegionChips() {
+    var chips = regionFilter.querySelectorAll('.chip');
+    chips.forEach(function (c) {
+      c.classList.toggle('active', state.region === c.dataset.key);
+    });
+  }
+
+  var searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function () {
+    state.keyword = searchInput.value.trim();
+    renderViews();
+  });
+
+  // ===== 渲染观点列表 =====
+  function statusBadge(status) {
+    var label = STATUS_NAMES[status] || status;
+    return '<span class="badge st-' + status + '">' + label + '</span>';
+  }
+  function regionBadge(region) {
+    return '<span class="badge">' + region + '</span>';
+  }
+
+  function renderViews() {
+    var list = document.getElementById('viewList');
+    var empty = document.getElementById('emptyTip');
+    var kw = state.keyword.toLowerCase();
+    var matched = D.views.filter(function (v) {
+      if (state.cat && (v.categories || []).indexOf(state.cat) < 0) return false;
+      if (state.status && v.status !== state.status) return false;
+      if (state.region && v.region !== state.region) return false;
+      if (kw) {
+        var hay = (v.person + ' ' + (v.identity || '') + ' ' + v.title + ' ' + (v.detail || '')).toLowerCase();
+        if (hay.indexOf(kw) < 0) return false;
+      }
+      return true;
+    });
+    document.getElementById('resultCount').textContent = '共 ' + matched.length + ' / ' + D.views.length + ' 条';
+
+    list.innerHTML = '';
+    matched.forEach(function (v) {
+      var cats = (v.categories || []).map(function (c) {
+        var cat = D.categories.find(function (x) { return x.key === c; });
+        return '<span class="badge badge-accent">' + (cat ? cat.name : c) + '</span>';
+      }).join('');
+      var card = document.createElement('div');
+      card.className = 'view-card';
+      card.innerHTML =
+        '<div class="view-head">' +
+          '<div><div class="view-person">' + v.person + '</div>' +
+          '<div class="view-identity">' + (v.identity || '') + '</div></div>' +
+          '<div class="view-tags">' + regionBadge(v.region) + statusBadge(v.status) + '</div>' +
+        '</div>' +
+        '<div class="view-title">' + v.title + '</div>' +
+        '<div class="view-detail">' + (v.detail || '') + '</div>' +
+        '<div class="view-meta">' + (v.date ? '<span>📅 ' + v.date + '</span>' : '') + (v.updated ? '<span>追踪更新 ' + v.updated + '</span>' : '') + '</div>' +
+        (v.source ? '<div class="view-source">来源：' + v.source + '</div>' : '') +
+        '<div class="view-meta" style="margin-top:0.3rem;">' + cats + '</div>' +
+        (v.status_note ? '<div class="st-note">验证备注：' + v.status_note + '</div>' : '');
+      list.appendChild(card);
+    });
+    empty.style.display = matched.length === 0 ? 'block' : 'none';
+  }
+
+  // ===== 验证状态图表 =====
+  CHARTS.ensure(function () {
+    var counts = STATUS_KEYS.map(function (k) {
+      return D.views.filter(function (v) { return v.status === k; }).length;
+    });
+    CHARTS.bar('statusChart', STATUS_KEYS.map(function (k) { return STATUS_NAMES[k]; }), [
+      { name: '观点数', data: counts, color: '#b45309' }
+    ], { yName: '条' });
+  });
+
+  renderViews();
+  SiteInit('bearish');
+})();
+</script>
+</body>
+</html>

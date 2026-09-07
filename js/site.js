@@ -31,6 +31,7 @@
     { href: 'pages/compute.html', label: '算力供给', key: 'compute' },
     { href: 'pages/business.html', label: '商业表现', key: 'business' },
     { href: 'pages/macro.html', label: '宏观格局', key: 'macro' },
+    { href: 'pages/bearish.html', label: '看空观察', key: 'bearish' },
   ];
 
   // 给每个链接加上路径前缀
@@ -116,6 +117,7 @@
             <a href="${PATH_PREFIX}pages/compute.html">算力供给</a>
             <a href="${PATH_PREFIX}pages/business.html">商业表现</a>
             <a href="${PATH_PREFIX}pages/macro.html">宏观格局</a>
+            <a href="${PATH_PREFIX}pages/bearish.html">看空观察</a>
           </div>
         </div>
         <div class="footer-bottom">
