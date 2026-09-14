@@ -39,6 +39,17 @@
     item.fullHref = PATH_PREFIX + item.href;
   });
 
+  // 跨站链接（排除当前站）
+  var SITES = [
+    { href: 'https://fengzt13.github.io/nasdaq100-dashboard/', label: '纳指100', key: 'nasdaq' },
+    { href: 'https://fengzt13.github.io/ai-dashboard/', label: 'AI追踪', key: 'ai' },
+    { href: 'https://fengzt13.github.io/metal-dashboard/', label: '金铜', key: 'metal' },
+    { href: 'https://fengzt13.github.io/hbm-dashboard/', label: 'HBM', key: 'hbm' },
+    { href: 'https://fengzt13.github.io/laolei-views/', label: '老雷', key: 'laolei' },
+  ];
+  var crossLinksHtml = SITES.filter(function (s) { return s.key !== 'ai'; })
+    .map(function (s) { return `<a class="cross-link" href="${s.href}">${s.label}</a>`; }).join('');
+
   function buildHeader(activeKey) {
     var header = document.createElement('header');
     header.innerHTML = `
@@ -54,6 +65,7 @@
           }).join('')}
         </nav>
         <div class="nav-actions">
+          <div class="cross-links">${crossLinksHtml}</div>
           <button class="theme-toggle" id="theme-toggle" aria-label="切换深色模式" title="切换深色模式">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           </button>
@@ -67,6 +79,7 @@
           var active = item.key === activeKey ? ' active' : '';
           return `<a class="nav-link${active}" href="${item.fullHref}">${item.label}</a>`;
         }).join('')}
+        <div class="cross-links-mobile">${crossLinksHtml}</div>
       </div>
     `;
     document.body.prepend(header);
