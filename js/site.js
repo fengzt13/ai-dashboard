@@ -48,7 +48,7 @@
     { href: 'https://fengzt13.github.io/laolei-views/', label: '老雷观点', key: 'laolei' },
     { href: 'https://fengzt13.github.io/jinjiancheng-skill/', label: '金渐成SKILL', key: 'jinjiancheng' },
   ];
-  var crossLinksHtml = '<span class="cross-links-label">友情链接</span>' + SITES.filter(function (s) { return s.key !== 'ai'; })
+  var crossLinksHtml = SITES.filter(function (s) { return s.key !== 'ai'; })
     .map(function (s) { return `<a class="cross-link" href="${s.href}">${s.label}</a>`; }).join('');
 
   function buildHeader(activeKey) {
@@ -66,7 +66,6 @@
           }).join('')}
         </nav>
         <div class="nav-actions">
-          <div class="cross-links">${crossLinksHtml}</div>
           <button class="theme-toggle" id="theme-toggle" aria-label="切换深色模式" title="切换深色模式">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           </button>
@@ -75,12 +74,14 @@
           </button>
         </div>
       </div>
+      <div class="cross-bar"><span class="cross-links-label">友情链接</span>${crossLinksHtml}</div>
       <div class="mobile-nav" id="mobileNav">
         ${NAV_ITEMS.map(function (item) {
           var active = item.key === activeKey ? ' active' : '';
           return `<a class="nav-link${active}" href="${item.fullHref}">${item.label}</a>`;
         }).join('')}
-        <div class="cross-links-mobile">${crossLinksHtml}</div>
+        <div class="cross-links-mobile">${SITES.filter(function (s) { return s.key !== 'ai'; })
+          .map(function (s) { return `<a class="cross-link" href="${s.href}">${s.label}</a>`; }).join('')}</div>
       </div>
     `;
     document.body.prepend(header);
@@ -105,7 +106,7 @@
     // 移动端菜单
     var menuBtn = document.getElementById('mobileMenuBtn');
     var mobileNav = document.getElementById('mobileNav');
-    menuBtn.addEventListener('click', function () {
+    if (menuBtn) menuBtn.addEventListener('click', function () {
       mobileNav.classList.toggle('open');
     });
   }
